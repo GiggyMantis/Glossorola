@@ -1,6 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3kp4yvs1tsvk"]
-
-[ext_resource type="Texture2D" uid="uid://cjcyv33oxr5u" path="res://icon.svg" id="1_4k45s"]
+[gd_scene format=3 uid="uid://b3kp4yvs1tsvk"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -11,12 +9,17 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Test" type="TabBar" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-tab_count = 3
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.462
+anchor_bottom = 0.062
+offset_right = -492.224
+offset_bottom = -0.176003
+tab_count = 6
 clip_tabs = false
-tab_0/title = "ASfafeefef"
-tab_0/icon = ExtResource("1_4k45s")
-tab_1/title = "Fajfjefjeaf"
-tab_2/title = "Erer"
+tab_0/title = "HOME_MENU"
+tab_1/title = "PROJECT_MENU"
+tab_2/title = "DICTIONARY_MODULE"
+tab_3/title = "PHONOLOGY_MODULE"
+tab_4/title = "GRAMMAR_MODULE"
+tab_5/title = "EVOLUTION_MODULE"
