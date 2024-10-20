@@ -53,7 +53,6 @@ offset_bottom = 40.0
 script = ExtResource("1_sv0xb")
 
 [node name="ProjectMenu" type="Control" parent="TabManager"]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -88,6 +87,23 @@ offset_bottom = 1.0
 placeholder_text = "AUTONYM"
 max_length = 25
 expand_to_text_length = true
+
+[node name="Langtype" type="OptionButton" parent="TabManager/ProjectMenu"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 120.0
+offset_right = 210.0
+offset_bottom = 154.0
+item_count = 4
+selected = 0
+popup/item_0/text = "UNSET"
+popup/item_0/id = 0
+popup/item_1/text = "A_PRIORI"
+popup/item_1/id = 1
+popup/item_2/text = "MIXED_ORI"
+popup/item_2/id = 2
+popup/item_3/text = "A_POSTEORI"
+popup/item_3/id = 3
 
 [node name="DictionaryModule" type="Control" parent="TabManager"]
 visible = false

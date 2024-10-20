@@ -13,3 +13,7 @@ CORPUS_MODULE,Corpus,Corpus,Corpus
 KEYBOARD_MODULE,Keyboard,Teclado,Teclado
 NAME_OF_LANGUAGE,Language Name,Nombre del Idioma,Nome da Lingua
 AUTONYM,Endonym,Endónimo,Endônimo
+UNSET,Not Set,No Establecido,Não Definido
+A_PRIORI,A Priori,A Priori,A Priori
+MIXED_ORI,Mixed,Blandad,Misto
+A_POSTEORI,A Posteori,A Posteori,A Posteori
