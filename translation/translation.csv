@@ -6,3 +6,8 @@ DICTIONARY_MODULE,Dictionary,Diccionario,Dicionário
 PHONOLOGY_MODULE,Phonology,Fonología,Fonologia
 GRAMMAR_MODULE,Grammar,Gramática,Gramática
 EVOLUTION_MODULE,Evolution,Evolución,Evolução
+IPA_KEYBOARD_TOOL,IPA Keyboard,Teclado de AFI,Teclado de AFI
+ORTHOGRAPHY_MODULE,Orthography,Ortografía,Ortografia
+LOGOGRAPHY_MODULE,Logography,Logogramas,Ideogramas
+CORPUS_MODULE,Corpus,Corpus,Corpus
+KEYBOARD_MODULE,Keyboard,Teclado,Teclado
