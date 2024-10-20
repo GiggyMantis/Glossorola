@@ -27,9 +27,13 @@ tab_count = 11
 tab_0/title = "HOME_MENU"
 tab_1/title = "PROJECT_MENU"
 tab_2/title = "DICTIONARY_MODULE"
+tab_2/disabled = true
 tab_3/title = "PHONOLOGY_MODULE"
+tab_3/disabled = true
 tab_4/title = "GRAMMAR_MODULE"
+tab_4/disabled = true
 tab_5/title = "EVOLUTION_MODULE"
+tab_5/disabled = true
 tab_6/title = "IPA_KEYBOARD_TOOL"
 tab_6/disabled = true
 tab_7/title = "ORTHOGRAPHY_MODULE"
@@ -54,6 +58,18 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_sv0xb")
 tab_index = 1
+
+[node name="NameOfLanguage" type="LineEdit" parent="TabManager/ProjectMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.725
+anchor_right = 5.225
+anchor_bottom = 2.575
+offset_left = -1.0
+offset_right = -1.52588e-05
+placeholder_text = "NAME_OF_LANGUAGE"
+expand_to_text_length = true
 
 [node name="DictionaryModule" type="Control" parent="TabManager"]
 visible = false
