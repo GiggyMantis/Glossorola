@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://b3kp4yvs1tsvk"]
+[gd_scene load_steps=2 format=3 uid="uid://b3kp4yvs1tsvk"]
+
+[ext_resource type="Script" path="res://scripts/Tab.gd" id="1_sv0xb"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -8,7 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Test" type="TabBar" parent="."]
+[node name="TabManager" type="TabBar" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.462
@@ -23,3 +25,18 @@ tab_2/title = "DICTIONARY_MODULE"
 tab_3/title = "PHONOLOGY_MODULE"
 tab_4/title = "GRAMMAR_MODULE"
 tab_5/title = "EVOLUTION_MODULE"
+
+[node name="HomeMenu" type="Control" parent="TabManager"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_sv0xb")
+
+[node name="ColorRect" type="ColorRect" parent="TabManager/HomeMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 3.325
+anchor_top = 3.125
+anchor_right = 4.325
+anchor_bottom = 4.125
+offset_right = -1.52588e-05
