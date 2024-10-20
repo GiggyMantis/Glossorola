@@ -53,6 +53,7 @@ offset_bottom = 40.0
 script = ExtResource("1_sv0xb")
 
 [node name="ProjectMenu" type="Control" parent="TabManager"]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -66,9 +67,26 @@ anchor_left = 0.5
 anchor_top = 1.725
 anchor_right = 5.225
 anchor_bottom = 2.575
-offset_left = -1.0
-offset_right = -1.52588e-05
+offset_top = 1.0
+offset_right = 0.999985
+offset_bottom = 1.0
 placeholder_text = "NAME_OF_LANGUAGE"
+max_length = 22
+expand_to_text_length = true
+
+[node name="Autonym" type="LineEdit" parent="TabManager/ProjectMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.725
+anchor_right = 5.225
+anchor_bottom = 2.575
+offset_left = 380.0
+offset_top = 1.0
+offset_right = 381.0
+offset_bottom = 1.0
+placeholder_text = "AUTONYM"
+max_length = 25
 expand_to_text_length = true
 
 [node name="DictionaryModule" type="Control" parent="TabManager"]
