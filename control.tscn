@@ -22,7 +22,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.062
-offset_bottom = -0.176003
+offset_bottom = -3.176
 tab_count = 11
 tab_0/title = "HOME_MENU"
 tab_1/title = "PROJECT_MENU"
@@ -53,6 +53,7 @@ offset_bottom = 40.0
 script = ExtResource("1_sv0xb")
 
 [node name="ProjectMenu" type="Control" parent="TabManager"]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
