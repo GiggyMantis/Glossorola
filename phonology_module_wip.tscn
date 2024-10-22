@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://cd7n53s846vf8"]
+
+[ext_resource type="Script" path="res://scripts/PhonologyContainer.gd" id="1_5b5us"]
+
+[node name="PHONOLOGY_MODULE" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+
+[node name="ConsonantsContainer" type="GridContainer" parent="." node_paths=PackedStringArray("add_button", "delete_button")]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 90.0
+offset_right = 508.0
+offset_bottom = 262.0
+columns = 5
+script = ExtResource("1_5b5us")
+add_button = NodePath("")
+delete_button = NodePath("")
+
+[node name="ConsonantAdd" type="Button" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 52.0
+offset_right = 52.0
+offset_bottom = 83.0
+text = "+"
+
+[node name="ConsonantDelete" type="Button" parent="."]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 52.0
+offset_right = 100.0
+offset_bottom = 83.0
+text = "-"

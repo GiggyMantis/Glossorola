@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3kp4yvs1tsvk"]
+[gd_scene load_steps=3 format=3 uid="uid://b3kp4yvs1tsvk"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_77o4d"]
-[ext_resource type="Script" path="res://scripts/PhonologyContainer.gd" id="2_pmv7l"]
 [ext_resource type="Script" path="res://DictionaryContainer.gd" id="3_ba2fa"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("open_file_button", "save_file_button")]
@@ -89,37 +88,6 @@ popup/item_2/text = "MIXED_ORI"
 popup/item_2/id = 2
 popup/item_3/text = "A_POSTEORI"
 popup/item_3/id = 3
-
-[node name="PHONOLOGY_MODULE" type="Control" parent="TabManager"]
-visible = false
-layout_mode = 2
-
-[node name="ConsonantsContainer" type="GridContainer" parent="TabManager/PHONOLOGY_MODULE" node_paths=PackedStringArray("add_button", "delete_button")]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 90.0
-offset_right = 508.0
-offset_bottom = 262.0
-columns = 5
-script = ExtResource("2_pmv7l")
-add_button = NodePath("../ConsonantAdd")
-delete_button = NodePath("../ConsonantDelete")
-
-[node name="ConsonantAdd" type="Button" parent="TabManager/PHONOLOGY_MODULE"]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 52.0
-offset_right = 52.0
-offset_bottom = 83.0
-text = "+"
-
-[node name="ConsonantDelete" type="Button" parent="TabManager/PHONOLOGY_MODULE"]
-layout_mode = 0
-offset_left = 68.0
-offset_top = 52.0
-offset_right = 100.0
-offset_bottom = 83.0
-text = "-"
 
 [node name="DICTIONARY_MODULE" type="Control" parent="TabManager"]
 visible = false
