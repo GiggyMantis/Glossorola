@@ -12,9 +12,12 @@ func _ready():
 	delete_button.pressed.connect(self._delete)
 	#reload([{"Lemma":"Test","Pronunciation":"/test/","PartOfSpeech":0,"Gloss":"Test"}])
 
-func reload(list: Array[Dictionary]):
+func delete_children():
 	for child in get_children():
 		child.queue_free()
+
+func reload(list):
+	delete_children()
 	for item in list:
 		var item_node = word_node.instantiate()
 		item_node.get_child(0).text = item["Lemma"]

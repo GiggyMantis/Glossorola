@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/PhonologyContainer.gd" id="2_pmv7l"]
 [ext_resource type="Script" path="res://DictionaryContainer.gd" id="3_ba2fa"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" node_paths=PackedStringArray("open_file_button", "save_file_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,6 +12,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_77o4d")
+open_file_button = NodePath("TabManager/HOME_MENU/OPEN_FILE")
+save_file_button = NodePath("TabManager/HOME_MENU/SAVE_FILE")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -26,7 +28,24 @@ offset_right = 1152.0
 offset_bottom = 40.0
 
 [node name="HOME_MENU" type="Control" parent="TabManager"]
+visible = false
 layout_mode = 2
+
+[node name="OPEN_FILE" type="Button" parent="TabManager/HOME_MENU"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 35.0
+offset_right = 144.0
+offset_bottom = 82.0
+text = "OPEN_FILE"
+
+[node name="SAVE_FILE" type="Button" parent="TabManager/HOME_MENU"]
+layout_mode = 0
+offset_left = 170.0
+offset_top = 35.0
+offset_right = 294.0
+offset_bottom = 82.0
+text = "SAVE_FILE"
 
 [node name="PROJECT_MENU" type="Control" parent="TabManager"]
 visible = false
