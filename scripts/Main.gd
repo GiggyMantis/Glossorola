@@ -18,12 +18,14 @@ func collate_data() -> Dictionary:
 	info["Autonym"] = (get_node("TabManager/ProjectMenu/Autonym") as LineEdit).text
 	info["LanguageType"] = (get_node("TabManager/ProjectMenu/Langtype") as OptionButton).selected
 	info["Phonology"] = phonology
+	info["Dictionary"] = (get_node("TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer") as DictionaryContainer).save_data()
 	return info
 	
 func load_data(info: Dictionary):
 	(get_node("TabManager/ProjectMenu/NameOfLanguage") as LineEdit).text = info["LanguageName"]
 	(get_node("TabManager/ProjectMenu/Autonym") as LineEdit).text = info["Autonym"]
 	(get_node("TabManager/ProjectMenu/Langtype") as OptionButton).selected = info["LanguageType"]
+	(get_node("TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer") as DictionaryContainer).reload(info["Dictionary"])
 	phonology = info["Phonology"]
 	
 # Debug Functions

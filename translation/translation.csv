@@ -17,3 +17,8 @@ UNSET,Not Set,No Establecido,Não Definido
 A_PRIORI,A Priori,A Priori,A Priori
 MIXED_ORI,Mixed,Blandad,Misto
 A_POSTEORI,A Posteori,A Posteori,A Posteori
+GLOSS,Gloss Word(s),Glosa(s),Glosa(s)
+LEMMA,Lemma,Lema,Lema
+PRONUNCIATION,Pronunciation,Pronunciación,Pronúncia
+DICTIONARY_BUTTON_ADD_TOOLTIP,Add Word to Dictionary,Agregar Palabra al Diccionario,Adicionar Palavra ao Dicionário
+DICTIONARY_BUTTON_REMOVE_TOOLTIP,Remove Word from Dictionary,Eliminar Palabra del Diccionario,Remover Palavra do Dicionário

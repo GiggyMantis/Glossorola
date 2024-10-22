@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3kp4yvs1tsvk"]
+[gd_scene load_steps=5 format=3 uid="uid://b3kp4yvs1tsvk"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_77o4d"]
 [ext_resource type="Script" path="res://scripts/PhonologyContainer.gd" id="2_pmv7l"]
 [ext_resource type="Script" path="res://DictionaryContainer.gd" id="3_ba2fa"]
+[ext_resource type="PackedScene" uid="uid://bojatcy60ut07" path="res://word.tscn" id="4_rb07t"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -112,7 +113,6 @@ offset_left = 20.0
 offset_top = 52.0
 offset_right = 52.0
 offset_bottom = 83.0
-tooltip_text = "DICTIONARY_BUTTON_ADD_TOOLTIP"
 text = "+"
 
 [node name="DictionaryRemove" type="Button" parent="TabManager/DICTIONARY_MODULE"]
@@ -121,7 +121,6 @@ offset_left = 68.0
 offset_top = 52.0
 offset_right = 100.0
 offset_bottom = 83.0
-tooltip_text = "DICTIONARY_BUTTON_REMOVE_TOOLTIP"
 text = "-"
 
 [node name="DictionaryScrollContainer" type="ScrollContainer" parent="TabManager/DICTIONARY_MODULE"]
@@ -136,3 +135,6 @@ layout_mode = 2
 script = ExtResource("3_ba2fa")
 add_button = NodePath("../../DictionaryAdd")
 delete_button = NodePath("../../DictionaryRemove")
+
+[node name="Word" parent="TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer" instance=ExtResource("4_rb07t")]
+layout_mode = 2
