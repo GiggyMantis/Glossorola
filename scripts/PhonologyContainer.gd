@@ -19,4 +19,6 @@ func _add_new():
 	add_child(LineEdit.new())
 
 func _delete():
+	if get_child_count() == 0:
+		return
 	get_children()[get_child_count() - 1].queue_free()
