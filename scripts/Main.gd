@@ -1,4 +1,6 @@
 extends Control
+
+var phonology: Dictionary
 	
 func save_lang(filename: String, info: Dictionary):
 	var save_file = FileAccess.open(filename, FileAccess.WRITE)
@@ -15,9 +17,16 @@ func collate_data() -> Dictionary:
 	info["LanguageName"] = (get_node("TabManager/ProjectMenu/NameOfLanguage") as LineEdit).text
 	info["Autonym"] = (get_node("TabManager/ProjectMenu/Autonym") as LineEdit).text
 	info["LanguageType"] = (get_node("TabManager/ProjectMenu/Langtype") as OptionButton).selected
+	info["Phonology"] = phonology
 	return info
 	
 func load_data(info: Dictionary):
 	(get_node("TabManager/ProjectMenu/NameOfLanguage") as LineEdit).text = info["LanguageName"]
 	(get_node("TabManager/ProjectMenu/Autonym") as LineEdit).text = info["Autonym"]
 	(get_node("TabManager/ProjectMenu/Langtype") as OptionButton).selected = info["LanguageType"]
+	phonology = info["Phonology"]
+	
+# Debug Functions
+
+#func _ready():
+	#save_lang("Test.json", collate_data())
