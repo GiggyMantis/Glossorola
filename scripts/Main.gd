@@ -57,6 +57,7 @@ func _notification(what):
 	
 func collate_data() -> Dictionary:
 	var info: Dictionary
+	info["Version"] = 1.0
 	info["LanguageName"] = (get_node("TabManager/PROJECT_MENU/NameOfLanguage") as LineEdit).text
 	info["Autonym"] = (get_node("TabManager/PROJECT_MENU/Autonym") as LineEdit).text
 	info["LanguageType"] = (get_node("TabManager/PROJECT_MENU/Langtype") as OptionButton).selected
@@ -65,6 +66,13 @@ func collate_data() -> Dictionary:
 	return info
 	
 func load_data(info: Dictionary):
+	match info["Version"]:
+		1.0:
+			_load_data_version_one(info)
+		_:
+			assert(false, "Unknown version: " + info["Version"].to_string())
+
+func _load_data_version_one(info: Dictionary):
 	(get_node("TabManager/PROJECT_MENU/NameOfLanguage") as LineEdit).text = info["LanguageName"]
 	(get_node("TabManager/PROJECT_MENU/Autonym") as LineEdit).text = info["Autonym"]
 	(get_node("TabManager/PROJECT_MENU/Langtype") as OptionButton).selected = info["LanguageType"]

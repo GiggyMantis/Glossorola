@@ -22,3 +22,4 @@ popup/item_0/id = 0
 [node name="Gloss" type="LineEdit" parent="."]
 layout_mode = 2
 placeholder_text = "GLOSS"
+expand_to_text_length = true

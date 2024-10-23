@@ -27,7 +27,6 @@ offset_right = 1152.0
 offset_bottom = 40.0
 
 [node name="HOME_MENU" type="Control" parent="TabManager"]
-visible = false
 layout_mode = 2
 
 [node name="OPEN_FILE" type="Button" parent="TabManager/HOME_MENU"]
