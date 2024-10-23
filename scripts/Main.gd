@@ -70,7 +70,7 @@ func load_data(info: Dictionary):
 		1.0:
 			_load_data_version_one(info)
 		_:
-			assert(false, "Unknown version: " + info["Version"].to_string())
+			assert(false, "Unknown version: " + str(info["Version"]))
 
 func _load_data_version_one(info: Dictionary):
 	(get_node("TabManager/PROJECT_MENU/NameOfLanguage") as LineEdit).text = info["LanguageName"]
