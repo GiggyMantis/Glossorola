@@ -30,3 +30,14 @@ static func rewrite(s: String, rules: String, reverse: bool) -> String:
 		ret = ret.replace(rule, replacement_right[rule])
 	
 	return ret
+
+static func categories_to_dictionary(categories: String) -> Dictionary:
+	var ret: Dictionary
+	var categories_array = categories.split("\n")
+	for category in categories_array:
+		var category_split = category.replace(" = ", "=").split("=")
+		if category_split[1].contains(" "):
+			ret[category_split[0]] = category_split[1].split(" ")
+		else:
+			ret[category_split[0]] = category_split[1].split("")
+	return ret
