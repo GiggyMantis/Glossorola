@@ -15,9 +15,10 @@ static func apply(lexicon: String, rules: String, categories: String, rewrite_ru
 	return ret
 	
 static func rewrite(s: String, rules: String, reverse: bool) -> String:
-	
 	var rules_array = rules.split("\n")
+	@warning_ignore("unassigned_variable")
 	var replacement_left: Array[String]
+	@warning_ignore("unassigned_variable")
 	var replacement_right: Dictionary
 	for rule in rules_array:
 		var rule_individual = rule.split("|")
@@ -38,6 +39,7 @@ static func rewrite(s: String, rules: String, reverse: bool) -> String:
 	return ret
 
 static func categories_to_dictionary(categories: String) -> Dictionary:
+	@warning_ignore("unassigned_variable")
 	var ret: Dictionary
 	var categories_array = categories.split("\n")
 	for category in categories_array:

@@ -79,6 +79,5 @@ func load_data(info: Dictionary):
 			$TabManager/PROJECT_MENU/Autonym.text = info["Autonym"]
 			$TabManager/PROJECT_MENU/Langtype.selected = info["LanguageType"]
 			$TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.reload(info["Dictionary"])
-			phonology = info["Phonology"]
 		_:
 			assert(false, "Unknown version: " + info["Version"] + "	Current version: " + ProjectSettings.get_setting("application/config/version"))
