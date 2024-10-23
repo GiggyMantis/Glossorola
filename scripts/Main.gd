@@ -57,7 +57,7 @@ func _notification(what):
 	
 func collate_data() -> Dictionary:
 	var info: Dictionary
-	info["Version"] = 1.0
+	info["Version"] = ProjectSettings.get_setting("application/config/version")
 	info["LanguageName"] = (get_node("TabManager/PROJECT_MENU/NameOfLanguage") as LineEdit).text
 	info["Autonym"] = (get_node("TabManager/PROJECT_MENU/Autonym") as LineEdit).text
 	info["LanguageType"] = (get_node("TabManager/PROJECT_MENU/Langtype") as OptionButton).selected
@@ -67,14 +67,11 @@ func collate_data() -> Dictionary:
 	
 func load_data(info: Dictionary):
 	match info["Version"]:
-		1.0:
-			_load_data_version_one(info)
+		"1.0.0-alpha":
+			(get_node("TabManager/PROJECT_MENU/NameOfLanguage") as LineEdit).text = info["LanguageName"]
+			(get_node("TabManager/PROJECT_MENU/Autonym") as LineEdit).text = info["Autonym"]
+			(get_node("TabManager/PROJECT_MENU/Langtype") as OptionButton).selected = info["LanguageType"]
+			(get_node("TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer") as DictionaryContainer).reload(info["Dictionary"])
+			phonology = info["Phonology"]
 		_:
-			assert(false, "Unknown version: " + str(info["Version"]))
-
-func _load_data_version_one(info: Dictionary):
-	(get_node("TabManager/PROJECT_MENU/NameOfLanguage") as LineEdit).text = info["LanguageName"]
-	(get_node("TabManager/PROJECT_MENU/Autonym") as LineEdit).text = info["Autonym"]
-	(get_node("TabManager/PROJECT_MENU/Langtype") as OptionButton).selected = info["LanguageType"]
-	(get_node("TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer") as DictionaryContainer).reload(info["Dictionary"])
-	phonology = info["Phonology"]
+			assert(false, "Unknown version: " + info["Version"] + "	Current version: " + ProjectSettings.get_setting("application/config/version"))
