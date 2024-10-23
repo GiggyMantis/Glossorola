@@ -1,7 +1,6 @@
 extends VBoxContainer
 class_name DictionaryContainer
 
-
 var word_node = preload("res://word.tscn")
 
 @export var add_button: Button

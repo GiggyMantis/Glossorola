@@ -52,9 +52,7 @@ func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		save_lang(save_location, collate_data())
 		get_tree().quit() # default behavior
-	
 
-	
 func collate_data() -> Dictionary:
 	var info: Dictionary
 	info["Version"] = ProjectSettings.get_setting("application/config/version")
