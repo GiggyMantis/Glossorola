@@ -1,9 +1,15 @@
 class_name SCA
 
 static func apply(lexicon: String, rules: String, categories: String, rewrite_rules: String, apply_rewrite_rules_on_output: bool) -> String:
+	var categories_dictionary = categories_to_dictionary(categories)
+	
 	var ret = lexicon
 	ret = rewrite(ret, rewrite_rules, false)
+	var new_lexicon = ret.split("\n") 
 	
+	# Sound Change Application Goes Here
+	
+	ret = new_lexicon.join("\n")
 	if apply_rewrite_rules_on_output:
 		ret = rewrite(ret, rewrite_rules, true)
 	return ret
