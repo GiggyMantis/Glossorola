@@ -30,6 +30,7 @@ func _new_project():
 	$TabManager/PROJECT_MENU/NameOfLanguage.text = ""
 	$TabManager/PROJECT_MENU/Autonym.text = ""
 	$TabManager/PROJECT_MENU/Langtype.selected = 0
+	$TabManager.current_tab = 1
 
 func load_lang(filename: String) -> Dictionary:
 	var load_file = FileAccess.open(filename, FileAccess.READ)
