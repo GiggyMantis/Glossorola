@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3kp4yvs1tsvk"]
+[gd_scene load_steps=5 format=3 uid="uid://b3kp4yvs1tsvk"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_77o4d"]
+[ext_resource type="Texture2D" uid="uid://dqxenyuy7cq8p" path="res://textures/github-mark-white.svg" id="2_gxdx2"]
 [ext_resource type="Script" path="res://DictionaryContainer.gd" id="3_ba2fa"]
+[ext_resource type="Texture2D" uid="uid://dhiglb0caii3k" path="res://textures/email.svg" id="3_t7ds3"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("open_file_button", "save_file_button")]
+[node name="Control" type="Control" node_paths=PackedStringArray("open_file_button", "save_file_button", "new_project_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +15,7 @@ grow_vertical = 2
 script = ExtResource("1_77o4d")
 open_file_button = NodePath("TabManager/HOME_MENU/OPEN_FILE")
 save_file_button = NodePath("TabManager/HOME_MENU/SAVE_FILE")
+new_project_button = NodePath("TabManager/HOME_MENU/NEW_PROJECT")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -44,6 +47,52 @@ offset_top = 35.0
 offset_right = 294.0
 offset_bottom = 82.0
 text = "SAVE_FILE"
+
+[node name="NEW_PROJECT" type="Button" parent="TabManager/HOME_MENU"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 35.0
+offset_right = 444.0
+offset_bottom = 82.0
+text = "NEW_PROJECT"
+
+[node name="LinkButton" type="LinkButton" parent="TabManager/HOME_MENU"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -3.267
+anchor_bottom = -3.267
+offset_left = 20.0
+offset_top = 572.403
+offset_right = 70.0
+offset_bottom = 622.403
+tooltip_text = "GITHUB"
+uri = "https://github.com/GiggyMantis/Glossorola"
+
+[node name="TextureRect" type="TextureRect" parent="TabManager/HOME_MENU/LinkButton"]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+texture = ExtResource("2_gxdx2")
+expand_mode = 2
+
+[node name="LinkButton2" type="LinkButton" parent="TabManager/HOME_MENU"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -3.267
+anchor_bottom = -3.267
+offset_left = 96.0
+offset_top = 581.403
+offset_right = 143.37
+offset_bottom = 615.622
+tooltip_text = "EMAIL"
+uri = "mailto:giggymantis@gmail.com"
+
+[node name="TextureRect" type="TextureRect" parent="TabManager/HOME_MENU/LinkButton2"]
+layout_mode = 0
+offset_right = 47.37
+offset_bottom = 34.219
+texture = ExtResource("3_t7ds3")
+expand_mode = 2
 
 [node name="PROJECT_MENU" type="Control" parent="TabManager"]
 visible = false

@@ -24,3 +24,6 @@ DICTIONARY_BUTTON_ADD_TOOLTIP,Add Word to Dictionary,Agregar Palabra al Dicciona
 DICTIONARY_BUTTON_REMOVE_TOOLTIP,Remove Word from Dictionary,Eliminar Palabra del Diccionario,Remover Palavra do Dicionário
 OPEN_FILE,Open File,Abrir Archivo,Abrir Arquivo
 SAVE_FILE,Save to Disk,Guardar en Disco,Salvar no Disco
+NEW_PROJECT,New Project,Nuevo Proyecto,Novo Projeto
+GITHUB,GitHub,GitHub,GitHub
+EMAIL,Email me,Envíame un E-mail,Envie-me um e-mail

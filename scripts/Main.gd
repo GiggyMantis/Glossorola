@@ -2,6 +2,7 @@ extends Control
 
 @export var open_file_button: Button
 @export var save_file_button: Button
+@export var new_project_button: Button
 
 var phonology: Dictionary
 var save_location = "unsaved.json"
@@ -9,6 +10,7 @@ var save_location = "unsaved.json"
 func _ready():
 	open_file_button.pressed.connect(self._open_file_dialog)
 	save_file_button.pressed.connect(self._save_file_dialog)
+	new_project_button.pressed.connect(self._new_project)
 	
 func save_lang(filename: String, info: Dictionary):
 	var save_file = FileAccess.open(filename, FileAccess.WRITE)
@@ -22,6 +24,12 @@ func _load_from_file(filename: String):
 func _save_to_file(filename: String):
 	save_location = filename
 	save_lang(filename, collate_data())
+	
+func _new_project():
+	$TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.delete_children()
+	$TabManager/PROJECT_MENU/NameOfLanguage.text = ""
+	$TabManager/PROJECT_MENU/Autonym.text = ""
+	$TabManager/PROJECT_MENU/Langtype.selected = 0
 
 func load_lang(filename: String) -> Dictionary:
 	var load_file = FileAccess.open(filename, FileAccess.READ)
@@ -56,20 +64,20 @@ func _notification(what):
 func collate_data() -> Dictionary:
 	var info: Dictionary
 	info["Version"] = ProjectSettings.get_setting("application/config/version")
-	info["LanguageName"] = (get_node("TabManager/PROJECT_MENU/NameOfLanguage") as LineEdit).text
-	info["Autonym"] = (get_node("TabManager/PROJECT_MENU/Autonym") as LineEdit).text
-	info["LanguageType"] = (get_node("TabManager/PROJECT_MENU/Langtype") as OptionButton).selected
+	info["LanguageName"] = $TabManager/PROJECT_MENU/NameOfLanguage.text
+	info["Autonym"] = $TabManager/PROJECT_MENU/Autonym.text
+	info["LanguageType"] = $TabManager/PROJECT_MENU/Langtype.selected
 	info["Phonology"] = phonology
-	info["Dictionary"] = (get_node("TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer") as DictionaryContainer).save_data()
+	info["Dictionary"] = $TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.save_data()
 	return info
 	
 func load_data(info: Dictionary):
 	match info["Version"]:
 		"1.0.0-alpha":
-			(get_node("TabManager/PROJECT_MENU/NameOfLanguage") as LineEdit).text = info["LanguageName"]
-			(get_node("TabManager/PROJECT_MENU/Autonym") as LineEdit).text = info["Autonym"]
-			(get_node("TabManager/PROJECT_MENU/Langtype") as OptionButton).selected = info["LanguageType"]
-			(get_node("TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer") as DictionaryContainer).reload(info["Dictionary"])
+			$TabManager/PROJECT_MENU/NameOfLanguage.text = info["LanguageName"]
+			$TabManager/PROJECT_MENU/Autonym.text = info["Autonym"]
+			$TabManager/PROJECT_MENU/Langtype.selected = info["LanguageType"]
+			$TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.reload(info["Dictionary"])
 			phonology = info["Phonology"]
 		_:
 			assert(false, "Unknown version: " + info["Version"] + "	Current version: " + ProjectSettings.get_setting("application/config/version"))
