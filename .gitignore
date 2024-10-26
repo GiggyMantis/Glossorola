@@ -16,3 +16,6 @@ export_presets.cfg
 data_*/
 mono_crash.*.json
 >>>>>>> 5d2a4847064865fd88cd0e84c70b21fb3f205744
+
+unsaved.json
+
