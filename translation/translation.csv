@@ -27,3 +27,11 @@ SAVE_FILE,Save to Disk,Guardar en Disco,Salvar no Disco
 NEW_PROJECT,New Project,Nuevo Proyecto,Novo Projeto
 GITHUB,GitHub,GitHub,GitHub
 EMAIL,Email me,Envíame un E-mail,Envie-me um e-mail
+SOUND_CHANGE_TOOL,Sound Change Tool,Herramienta de Cambio de Sonido,Ferramenta de Mudança de Som
+CATEGORIES,Categories,Categorías,Categorias
+REWRITE_RULES,Rewrite Rules,Sustituciones,Substituições
+INPUT_LEXICON,Input Lexicon,Léxico de Entrada,Léxico de Entrada
+OUTPUT_LEXICON,Output Lexicon,Léxico de Salida,Léxico de Saída
+APPLY_SOUND_CHANGES,Apply Sound Changes,Aplicar,Aplicar
+SOUND_CHANGES,Sound Changes,Cambios de Sonido,Mudanças de Som
+APPLY_REWRITE_OUTPUT,Apply Rewrite Rules on Output?,¿Sustituto de Salida?,Substituto para saída?

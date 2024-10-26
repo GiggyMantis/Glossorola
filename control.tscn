@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3kp4yvs1tsvk"]
+[gd_scene load_steps=6 format=3 uid="uid://b3kp4yvs1tsvk"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_77o4d"]
 [ext_resource type="Texture2D" uid="uid://dqxenyuy7cq8p" path="res://textures/github-mark-white.svg" id="2_gxdx2"]
 [ext_resource type="Script" path="res://DictionaryContainer.gd" id="3_ba2fa"]
 [ext_resource type="Texture2D" uid="uid://dhiglb0caii3k" path="res://textures/email.svg" id="3_t7ds3"]
+[ext_resource type="Script" path="res://SoundChangeTool.gd" id="5_8aktb"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("open_file_button", "save_file_button", "new_project_button")]
 layout_mode = 3
@@ -30,6 +31,7 @@ offset_right = 1152.0
 offset_bottom = 40.0
 
 [node name="HOME_MENU" type="Control" parent="TabManager"]
+visible = false
 layout_mode = 2
 
 [node name="OPEN_FILE" type="Button" parent="TabManager/HOME_MENU"]
@@ -178,3 +180,104 @@ layout_mode = 2
 script = ExtResource("3_ba2fa")
 add_button = NodePath("../../DictionaryAdd")
 delete_button = NodePath("../../DictionaryRemove")
+
+[node name="SOUND_CHANGE_TOOL" type="Control" parent="TabManager" node_paths=PackedStringArray("button")]
+layout_mode = 2
+script = ExtResource("5_8aktb")
+button = NodePath("Button")
+
+[node name="Categories" type="TextEdit" parent="TabManager/SOUND_CHANGE_TOOL"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 35.0
+offset_top = 85.0
+offset_right = 256.0
+offset_bottom = 291.0
+text = "V=aeiou
+L=āēīōū
+C=ptcqbdgmnlrhs     
+F=ie
+B=ou
+S=ptc
+Z=bdg"
+placeholder_text = "CATEGORIES"
+
+[node name="RewriteRules" type="TextEdit" parent="TabManager/SOUND_CHANGE_TOOL"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 35.0
+offset_top = 331.0
+offset_right = 256.0
+offset_bottom = 537.0
+text = "lh|lj"
+placeholder_text = "REWRITE_RULES"
+
+[node name="SoundChanges" type="TextEdit" parent="TabManager/SOUND_CHANGE_TOOL"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 300.0
+offset_top = 331.0
+offset_right = 521.0
+offset_bottom = 537.0
+text = "[sm]//_#
+i/j/_V
+L/V/_
+e//Vr_#
+v//V_V
+u/o/_#
+gn/nh/_
+S/Z/V_V
+c/i/F_t
+c/u/B_t
+p//V_t
+ii/i/_
+e//C_rV"
+placeholder_text = "SOUND_CHANGES"
+
+[node name="InputLexicon" type="TextEdit" parent="TabManager/SOUND_CHANGE_TOOL"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 300.0
+offset_top = 85.0
+offset_right = 521.0
+offset_bottom = 291.0
+text = "lector
+doctor
+focus
+jocus
+districtus
+cīvitatem
+adoptare
+opera
+secundus
+fīliam
+pōntem
+"
+placeholder_text = "INPUT_LEXICON"
+
+[node name="OutputLexicon" type="TextEdit" parent="TabManager/SOUND_CHANGE_TOOL"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 565.0
+offset_top = 85.0
+offset_right = 786.0
+offset_bottom = 291.0
+placeholder_text = "OUTPUT_LEXICON"
+editable = false
+
+[node name="Button" type="Button" parent="TabManager/SOUND_CHANGE_TOOL"]
+layout_mode = 0
+offset_left = 788.0
+offset_top = 339.0
+offset_right = 991.0
+offset_bottom = 412.0
+text = "APPLY_SOUND_CHANGES"
+
+[node name="CheckButton" type="CheckButton" parent="TabManager/SOUND_CHANGE_TOOL"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 47.0
+offset_right = 277.0
+offset_bottom = 78.0
+button_pressed = true
+text = "APPLY_REWRITE_OUTPUT"
