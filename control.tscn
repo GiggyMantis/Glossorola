@@ -1,12 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://b3kp4yvs1tsvk"]
+[gd_scene load_steps=7 format=3 uid="uid://b3kp4yvs1tsvk"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_77o4d"]
 [ext_resource type="Texture2D" uid="uid://dqxenyuy7cq8p" path="res://textures/github-mark-white.svg" id="2_gxdx2"]
-[ext_resource type="Script" path="res://DictionaryContainer.gd" id="3_ba2fa"]
+[ext_resource type="Script" path="res://scripts/DictionaryContainer.gd" id="3_ba2fa"]
 [ext_resource type="Texture2D" uid="uid://dhiglb0caii3k" path="res://textures/email.svg" id="3_t7ds3"]
-[ext_resource type="Script" path="res://SoundChangeTool.gd" id="5_8aktb"]
+[ext_resource type="Texture2D" uid="uid://b8nrxeivn87uy" path="res://textures/image.svg" id="4_2l70c"]
+[ext_resource type="Script" path="res://scripts/SoundChangeTool.gd" id="5_8aktb"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("open_file_button", "save_file_button", "new_project_button")]
+[node name="Control" type="Control" node_paths=PackedStringArray("open_file_button", "save_file_button", "new_project_button", "translation_settings", "part_of_speech_list")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,6 +18,8 @@ script = ExtResource("1_77o4d")
 open_file_button = NodePath("TabManager/HOME_MENU/OPEN_FILE")
 save_file_button = NodePath("TabManager/HOME_MENU/SAVE_FILE")
 new_project_button = NodePath("TabManager/HOME_MENU/NEW_PROJECT")
+translation_settings = NodePath("TabManager/HOME_MENU/TranslationSettings")
+part_of_speech_list = NodePath("TabManager/GRAMMAR_MODULE/PartOfSpeechList")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -31,7 +34,6 @@ offset_right = 1152.0
 offset_bottom = 40.0
 
 [node name="HOME_MENU" type="Control" parent="TabManager"]
-visible = false
 layout_mode = 2
 
 [node name="OPEN_FILE" type="Button" parent="TabManager/HOME_MENU"]
@@ -102,6 +104,30 @@ offset_top = 38.0
 offset_right = 40.0
 offset_bottom = 61.0
 text = "giggymantis@gmail.com"
+
+[node name="TranslationSettings" type="OptionButton" parent="TabManager/HOME_MENU"]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 474.0
+offset_right = 111.0
+offset_bottom = 494.0
+item_count = 3
+selected = 0
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "español"
+popup/item_1/id = 1
+popup/item_2/text = "português (brasil)"
+popup/item_2/id = 2
+
+[node name="TextureRect" type="TextureRect" parent="TabManager/HOME_MENU/TranslationSettings"]
+layout_mode = 0
+offset_left = -76.0
+offset_top = -22.0
+offset_right = 22.6667
+offset_bottom = 52.0
+texture = ExtResource("4_2l70c")
+expand_mode = 3
 
 [node name="PROJECT_MENU" type="Control" parent="TabManager"]
 visible = false
@@ -182,6 +208,7 @@ add_button = NodePath("../../DictionaryAdd")
 delete_button = NodePath("../../DictionaryRemove")
 
 [node name="SOUND_CHANGE_TOOL" type="Control" parent="TabManager" node_paths=PackedStringArray("button")]
+visible = false
 layout_mode = 2
 script = ExtResource("5_8aktb")
 button = NodePath("Button")
@@ -281,3 +308,29 @@ offset_right = 277.0
 offset_bottom = 78.0
 button_pressed = true
 text = "APPLY_REWRITE_OUTPUT"
+
+[node name="GRAMMAR_MODULE" type="Control" parent="TabManager"]
+visible = false
+layout_mode = 2
+
+[node name="PartOfSpeechList" type="TextEdit" parent="TabManager/GRAMMAR_MODULE"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 48.0
+offset_right = 368.0
+offset_bottom = 538.0
+tooltip_text = "ADD_WORD_CLASS"
+text = "noun common
+noun neuter
+verb weak
+verb strong 1
+verb strong 2
+verb strong 3
+adverb
+adjective
+adposition
+interjection
+pronoun
+conjunction
+particle"
+placeholder_text = "ADD_WORD_CLASS"

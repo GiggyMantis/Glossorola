@@ -1,6 +1,10 @@
-[gd_scene format=3 uid="uid://bojatcy60ut07"]
+[gd_scene load_steps=2 format=3 uid="uid://bojatcy60ut07"]
 
-[node name="Word" type="HBoxContainer"]
+[ext_resource type="Script" path="res://PartOfSpeechManagement.gd" id="1_b8vcb"]
+
+[node name="Word" type="HBoxContainer" node_paths=PackedStringArray("pos_selector")]
+script = ExtResource("1_b8vcb")
+pos_selector = NodePath("PartOfSpeech")
 
 [node name="WordEdit" type="LineEdit" parent="."]
 layout_mode = 2
@@ -12,12 +16,8 @@ layout_mode = 2
 placeholder_text = "PRONUNCIATION"
 expand_to_text_length = true
 
-[node name="OptionButton" type="OptionButton" parent="."]
+[node name="PartOfSpeech" type="OptionButton" parent="."]
 layout_mode = 2
-item_count = 1
-selected = 0
-popup/item_0/text = "(POS WIP)"
-popup/item_0/id = 0
 
 [node name="Gloss" type="LineEdit" parent="."]
 layout_mode = 2

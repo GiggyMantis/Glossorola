@@ -9,7 +9,7 @@ var word_node = preload("res://word.tscn")
 func _ready():
 	add_button.pressed.connect(self._add_new)
 	delete_button.pressed.connect(self._delete)
-	#reload([{"Lemma":"Test","Pronunciation":"/test/","PartOfSpeech":0,"Gloss":"Test"}])
+
 
 func delete_children():
 	for child in get_children():

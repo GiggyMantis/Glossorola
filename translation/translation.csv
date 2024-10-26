@@ -35,3 +35,4 @@ OUTPUT_LEXICON,Output Lexicon,Léxico de Salida,Léxico de Saída
 APPLY_SOUND_CHANGES,Apply Sound Changes,Aplicar,Aplicar
 SOUND_CHANGES,Sound Changes,Cambios de Sonido,Mudanças de Som
 APPLY_REWRITE_OUTPUT,Apply Rewrite Rules on Output?,¿Sustituto de Salida?,Substituto para saída?
+ADD_WORD_CLASS,Add Part of Speech or Word Class,Agregar Parte del Discurso o Clase de Palabra,Adicionar Classe Gramatical

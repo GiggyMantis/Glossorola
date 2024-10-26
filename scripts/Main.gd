@@ -3,14 +3,29 @@ extends Control
 @export var open_file_button: Button
 @export var save_file_button: Button
 @export var new_project_button: Button
+@export var translation_settings: OptionButton
+@export var part_of_speech_list: TextEdit
 
-var phonology: Dictionary
 var save_location = "unsaved.json"
 
 func _ready():
 	open_file_button.pressed.connect(self._open_file_dialog)
 	save_file_button.pressed.connect(self._save_file_dialog)
 	new_project_button.pressed.connect(self._new_project)
+	translation_settings.item_selected.connect(self._translate)
+	
+func get_parts_of_speech():
+	return part_of_speech_list.text.split("\n")
+	
+func _translate(i: int):
+	match i:
+		0:
+			TranslationServer.set_locale("en")
+		1:
+			TranslationServer.set_locale("es")
+		2:
+			TranslationServer.set_locale("pt_BR")
+
 	
 func save_lang(filename: String, info: Dictionary):
 	var save_file = FileAccess.open(filename, FileAccess.WRITE)
@@ -68,16 +83,17 @@ func collate_data() -> Dictionary:
 	info["LanguageName"] = $TabManager/PROJECT_MENU/NameOfLanguage.text
 	info["Autonym"] = $TabManager/PROJECT_MENU/Autonym.text
 	info["LanguageType"] = $TabManager/PROJECT_MENU/Langtype.selected
-	info["Phonology"] = phonology
 	info["Dictionary"] = $TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.save_data()
+	info["PartsOfSpeech"] = get_parts_of_speech()
 	return info
 	
 func load_data(info: Dictionary):
 	match info["Version"]:
-		"1.0.0-alpha":
+		"1.0.0-beta":
 			$TabManager/PROJECT_MENU/NameOfLanguage.text = info["LanguageName"]
 			$TabManager/PROJECT_MENU/Autonym.text = info["Autonym"]
 			$TabManager/PROJECT_MENU/Langtype.selected = info["LanguageType"]
 			$TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.reload(info["Dictionary"])
+			$TabManager/GRAMMAR_MODULE/PartOfSpeechList.text = "\n".join(info["PartsOfSpeech"])
 		_:
 			assert(false, "Unknown version: " + info["Version"] + "	Current version: " + ProjectSettings.get_setting("application/config/version"))
