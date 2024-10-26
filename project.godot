@@ -14,7 +14,7 @@ config/name="Glossorola"
 config/description="Glossorola is a desktop app for the creation of constructed languages. by GiggyMantis"
 config/version="1.0.0-beta"
 run/main_scene="res://control.tscn"
-config/features=PackedStringArray("4.2", "GL Compatibility")
+config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
