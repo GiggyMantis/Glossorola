@@ -22,8 +22,8 @@ func _ready():
 func get_parts_of_speech():
 	return part_of_speech_list.text.split("\n")
 	
-func _translate(i: int):
-	match i:
+func _translate(language_index: int):
+	match language_index:
 		0:
 			TranslationServer.set_locale("en")
 		1:
