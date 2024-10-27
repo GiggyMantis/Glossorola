@@ -50,6 +50,7 @@ func _new_project():
 	$TabManager/PROJECT_MENU/NameOfLanguage.text = ""
 	$TabManager/PROJECT_MENU/Autonym.text = ""
 	$TabManager/PROJECT_MENU/Langtype.selected = 0
+	$TabManager/GRAMMAR_MODULE/BriefGrammarOverview.text = ""
 	
 	_reload_parts_of_speech()
 	_reload_sound_changes()
@@ -119,23 +120,32 @@ func load_config_file():
 func collate_data() -> Dictionary:
 	var info: Dictionary
 	info["Version"] = ProjectSettings.get_setting("application/config/version")
-	info["LanguageName"] = $TabManager/PROJECT_MENU/NameOfLanguage.text
-	info["Autonym"] = $TabManager/PROJECT_MENU/Autonym.text
-	info["LanguageType"] = $TabManager/PROJECT_MENU/Langtype.selected
-	info["Dictionary"] = $TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.save_data()
-	info["PartsOfSpeech"] = get_parts_of_speech()
+	info["Project/LanguageName"] = $TabManager/PROJECT_MENU/NameOfLanguage.text
+	info["Project/Autonym"] = $TabManager/PROJECT_MENU/Autonym.text
+	info["Project/LanguageType"] = $TabManager/PROJECT_MENU/Langtype.selected
+	info["Project/Dictionary"] = $TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.save_data()
+	info["Grammar/PartsOfSpeech"] = get_parts_of_speech()
+	info["Grammar/BriefGrammarbook"] = $TabManager/GRAMMAR_MODULE/BriefGrammarOverview.text
 	return info
 	
 func load_data(info: Dictionary):
 	var minor_version = info["Version"].substr(0,4)
 	if info["Version"].ends_with("-beta"):
 		match minor_version:
+			"1.1.":
+				$TabManager/PROJECT_MENU/NameOfLanguage.text = info["Project/LanguageName"]
+				$TabManager/PROJECT_MENU/Autonym.text = info["Project/Autonym"]
+				$TabManager/PROJECT_MENU/Langtype.selected = info["Project/LanguageType"]
+				$TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.reload(info["Project/Dictionary"])
+				$TabManager/GRAMMAR_MODULE/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
+				$TabManager/GRAMMAR_MODULE/BriefGrammarOverview.text = info["Grammar/BriefGrammarbook"]
 			"1.0.":
 				$TabManager/PROJECT_MENU/NameOfLanguage.text = info["LanguageName"]
 				$TabManager/PROJECT_MENU/Autonym.text = info["Autonym"]
 				$TabManager/PROJECT_MENU/Langtype.selected = info["LanguageType"]
 				$TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.reload(info["Dictionary"])
 				$TabManager/GRAMMAR_MODULE/PartOfSpeechList.text = "\n".join(info["PartsOfSpeech"])
+				$TabManager/GRAMMAR_MODULE/BriefGrammarOverview.text = ""
 	else:
 		match minor_version:
 			_:

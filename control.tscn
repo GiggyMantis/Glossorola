@@ -32,9 +32,10 @@ color = Color(0.121569, 0.121569, 0.121569, 1)
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 40.0
-current_tab = 0
+current_tab = 4
 
 [node name="HOME_MENU" type="Control" parent="TabManager"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -280,7 +281,6 @@ button_pressed = true
 text = "APPLY_REWRITE_OUTPUT"
 
 [node name="GRAMMAR_MODULE" type="Control" parent="TabManager"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
@@ -301,3 +301,12 @@ conjunction
 pronoun
 phrase"
 placeholder_text = "ADD_WORD_CLASS"
+
+[node name="BriefGrammarOverview" type="TextEdit" parent="TabManager/GRAMMAR_MODULE"]
+layout_mode = 0
+offset_left = 426.0
+offset_top = 48.0
+offset_right = 1126.0
+offset_bottom = 538.0
+tooltip_text = "BRIEF_GRAMMAR_OVERVIEW_TOOLTIP"
+placeholder_text = "BRIEF_GRAMMAR_OVERVIEW_TOOLTIP"
