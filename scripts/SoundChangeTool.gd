@@ -11,7 +11,7 @@ func _apply():
 	sca.lexicon = $InputLexicon.text
 	sca.rules = $SoundChanges.text
 	sca.rewrite_rules = $RewriteRules.text
-	sca.rewrite_output = $CheckButton.button_pressed
+	sca.rewrite_output = $RewriteOnOutput.button_pressed
 	#sca.compile()
 	#print(sca.apply_rule("lector",0))
 	$OutputLexicon.text = "\n".join(sca.apply())

@@ -65,24 +65,25 @@ func compile() -> void:
 	number_of_categories = rewritten_categories.size()
 	var bad_categories = false;
 
-	# Make sure cats have structure like V=aeiou
-	category_index = "";
-	for w in number_of_categories:
-		# A final empty cat can be ignored
-		var thiscat = rewritten_categories[w]
-		if thiscat[thiscat.length() - 1] == "\n":
-			thiscat = thiscat.substr(0, thiscat.length() - 1)
-			rewritten_categories[w] = thiscat
-			
-		if thiscat.length() == 0 and w == number_of_categories - 1:
-			number_of_categories -= 1
-		elif thiscat.length() < 3:
-			bad_categories = true
-		else:
-			if find(thiscat, "=") == -1:
+	# Make sure cats have structure like V=aeiou, if they exist at all
+	if not categories.strip_edges(true, true).is_empty():
+		category_index = "";
+		for w in number_of_categories:
+			# A final empty cat can be ignored
+			var thiscat = rewritten_categories[w]
+			if thiscat[thiscat.length() - 1] == "\n":
+				thiscat = thiscat.substr(0, thiscat.length() - 1)
+				rewritten_categories[w] = thiscat
+				
+			if thiscat.length() == 0 and w == number_of_categories - 1:
+				number_of_categories -= 1
+			elif thiscat.length() < 3:
 				bad_categories = true
 			else:
-				category_index += thiscat[0]
+				if find(thiscat, "=") == -1:
+					bad_categories = true
+				else:
+					category_index += thiscat[0]
 
 	# Parse the sound changes 
 	rewritten_rules = rewrite(rules)

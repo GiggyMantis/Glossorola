@@ -7,7 +7,7 @@ extends Control
 @export var part_of_speech_list: TextEdit
 
 const default_parts_of_speech_filename = "res://config/default_parts_of_speech.txt"
-const config_filename = "res://config/options.cfg"
+const config_filename = "config/options.cfg"
 
 var save_location = "unsaved.json"
 
@@ -126,6 +126,10 @@ func collate_data() -> Dictionary:
 	info["Project/Dictionary"] = $TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.save_data()
 	info["Grammar/PartsOfSpeech"] = get_parts_of_speech()
 	info["Grammar/BriefGrammarbook"] = $TabManager/GRAMMAR_MODULE/BriefGrammarOverview.text
+	info["SCA/Categories"] = $TabManager/SOUND_CHANGE_TOOL/Categories.text
+	info["SCA/Rewrite"] = $TabManager/SOUND_CHANGE_TOOL/RewriteRules.text
+	info["SCA/Rules"] = $TabManager/SOUND_CHANGE_TOOL/SoundChanges.text
+	info["SCA/RewriteOnOutput"] = $TabManager/SOUND_CHANGE_TOOL/RewriteOnOutput.button_pressed
 	return info
 	
 func load_data(info: Dictionary):
@@ -139,6 +143,10 @@ func load_data(info: Dictionary):
 				$TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.reload(info["Project/Dictionary"])
 				$TabManager/GRAMMAR_MODULE/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
 				$TabManager/GRAMMAR_MODULE/BriefGrammarOverview.text = info["Grammar/BriefGrammarbook"]
+				$TabManager/SOUND_CHANGE_TOOL/Categories.text = info["SCA/Categories"]
+				$TabManager/SOUND_CHANGE_TOOL/RewriteRules.text = info["SCA/Rewrite"]
+				$TabManager/SOUND_CHANGE_TOOL/SoundChanges.text = info["SCA/Rules"]
+				$TabManager/SOUND_CHANGE_TOOL/RewriteOnOutput.button_pressed = info["SCA/RewriteOnOutput"]
 			"1.0.":
 				$TabManager/PROJECT_MENU/NameOfLanguage.text = info["LanguageName"]
 				$TabManager/PROJECT_MENU/Autonym.text = info["Autonym"]
