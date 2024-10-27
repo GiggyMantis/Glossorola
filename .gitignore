@@ -19,3 +19,4 @@ mono_crash.*.json
 
 unsaved.json
 Glossorola_Exports/*
+config/*.cfg

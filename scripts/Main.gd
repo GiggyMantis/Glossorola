@@ -6,6 +6,9 @@ extends Control
 @export var translation_settings: OptionButton
 @export var part_of_speech_list: TextEdit
 
+const default_parts_of_speech_filename = "res://config/default_parts_of_speech.txt"
+const config_filename = "res://config/options.cfg"
+
 var save_location = "unsaved.json"
 
 func _ready():
@@ -13,6 +16,8 @@ func _ready():
 	save_file_button.pressed.connect(self._save_file_dialog)
 	new_project_button.pressed.connect(self._new_project)
 	translation_settings.item_selected.connect(self._translate)
+	_reload_parts_of_speech()
+	load_config_file()
 	
 func get_parts_of_speech():
 	return part_of_speech_list.text.split("\n")
@@ -25,11 +30,10 @@ func _translate(i: int):
 			TranslationServer.set_locale("es")
 		2:
 			TranslationServer.set_locale("pt_BR")
-
 	
 func save_lang(filename: String, info: Dictionary):
 	var save_file = FileAccess.open(filename, FileAccess.WRITE)
-	save_file.store_line(JSON.new().stringify(info))
+	save_file.store_line(JSON.stringify(info))
 	save_file.close()
 	
 func _load_from_file(filename: String):
@@ -46,11 +50,16 @@ func _new_project():
 	$TabManager/PROJECT_MENU/Autonym.text = ""
 	$TabManager/PROJECT_MENU/Langtype.selected = 0
 	$TabManager.current_tab = 1
+	_reload_parts_of_speech()
+
+func _reload_parts_of_speech():
+	var f = FileAccess.open(default_parts_of_speech_filename, FileAccess.READ)
+	part_of_speech_list.text = f.get_as_text()
 
 func load_lang(filename: String) -> Dictionary:
 	var load_file = FileAccess.open(filename, FileAccess.READ)
 	var lines = load_file.get_as_text()
-	return JSON.new().parse_string(lines)
+	return JSON.parse_string(lines)
 	
 func _open_file_dialog():
 	var dialog = FileDialog.new()
@@ -75,7 +84,26 @@ func _save_file_dialog():
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		save_lang(save_location, collate_data())
+		save_config_file(translation_settings.selected)
 		get_tree().quit() # default behavior
+
+func save_config_file(language: int):
+	var config = ConfigFile.new()
+	
+	config.set_value("Glossorola", "language", language)
+	
+	config.save(config_filename)
+
+func load_config_file():
+	var config = ConfigFile.new()
+	var err = config.load(config_filename)
+	
+	# If the file didn't load, ignore.
+	if err != OK:
+		return
+	
+	translation_settings.select(config.get_value("Glossorola", "language"))
+	
 
 func collate_data() -> Dictionary:
 	var info: Dictionary
@@ -88,12 +116,16 @@ func collate_data() -> Dictionary:
 	return info
 	
 func load_data(info: Dictionary):
-	match info["Version"]:
-		"1.0.0-beta":
-			$TabManager/PROJECT_MENU/NameOfLanguage.text = info["LanguageName"]
-			$TabManager/PROJECT_MENU/Autonym.text = info["Autonym"]
-			$TabManager/PROJECT_MENU/Langtype.selected = info["LanguageType"]
-			$TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.reload(info["Dictionary"])
-			$TabManager/GRAMMAR_MODULE/PartOfSpeechList.text = "\n".join(info["PartsOfSpeech"])
-		_:
-			assert(false, "Unknown version: " + info["Version"] + "	Current version: " + ProjectSettings.get_setting("application/config/version"))
+	var minor_version = info["Version"].substr(0,4)
+	if info["Version"].ends_with("-beta"):
+		match minor_version:
+			"1.0.":
+				$TabManager/PROJECT_MENU/NameOfLanguage.text = info["LanguageName"]
+				$TabManager/PROJECT_MENU/Autonym.text = info["Autonym"]
+				$TabManager/PROJECT_MENU/Langtype.selected = info["LanguageType"]
+				$TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.reload(info["Dictionary"])
+				$TabManager/GRAMMAR_MODULE/PartOfSpeechList.text = "\n".join(info["PartsOfSpeech"])
+	else:
+		match minor_version:
+			_:
+				assert(false, "Unknown version: " + info["Version"] + "	Current version: " + ProjectSettings.get_setting("application/config/version"))

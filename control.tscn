@@ -324,17 +324,13 @@ offset_top = 48.0
 offset_right = 368.0
 offset_bottom = 538.0
 tooltip_text = "ADD_WORD_CLASS"
-text = "noun common
-noun neuter
-verb weak
-verb strong 1
-verb strong 2
-verb strong 3
-adverb
+text = "noun
 adjective
+adverb
+verb
 adposition
 interjection
-pronoun
 conjunction
-particle"
+pronoun
+phrase"
 placeholder_text = "ADD_WORD_CLASS"

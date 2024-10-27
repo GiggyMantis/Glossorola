@@ -13,7 +13,6 @@ var number_of_categories
 var rewritten_rules
 var number_of_rules
 var category_index = ""
-var badcats
 
 func find(s: String, ch: String) -> int:
 	for i in s.length():
@@ -64,7 +63,7 @@ func compile() -> void:
 	# Parse the category list
 	rewritten_categories = rewrite(categories);
 	number_of_categories = rewritten_categories.size()
-	var badcats = false;
+	var bad_categories = false;
 
 	# Make sure cats have structure like V=aeiou
 	category_index = "";
@@ -78,10 +77,10 @@ func compile() -> void:
 		if thiscat.length() == 0 and w == number_of_categories - 1:
 			number_of_categories -= 1
 		elif thiscat.length() < 3:
-			badcats = true
+			bad_categories = true
 		else:
 			if find(thiscat, "=") == -1:
-				badcats = true
+				bad_categories = true
 			else:
 				category_index += thiscat[0]
 
@@ -122,7 +121,7 @@ func compile() -> void:
 		w += 1
 	
 	# Error strings
-	assert(not badcats, "Categories must be of the form V=aeiou \nThat is, a single letter, an equal sign, then a list of possible expansions.")
+	assert(not bad_categories, "Categories must be of the form V=aeiou \nThat is, a single letter, an equal sign, then a list of possible expansions.")
 	assert(number_of_rules > 0, "There are no valid sound changes, so no output can be generated. Rules must be of the form s1/s2/e1_e2. The strings are optional, but the slashes are not.")
 
 # Globals for Match as we don't have pass by reference
@@ -131,8 +130,8 @@ var glen = 0
 var gcat
 
 # Are we at a word boundary?
-func at_space(inword: String, i, gix) -> bool:
-	if gix == -1:
+func at_space(inword: String, i, global_ix) -> bool:
+	if global_ix == -1:
 		# Before _ this must match beginning of word
 		if i == 0 or inword[i - 1] == ' ':
 			return true
@@ -143,22 +142,22 @@ func at_space(inword: String, i, gix) -> bool:
 	return false
 
 # Does this character match directly, or via a category?
-func match_char_or_cat(inwordCh, tgtCh) -> bool:
-	var ix = find(category_index, tgtCh)
+func match_char_or_cat(inwordCh, target_character) -> bool:
+	var ix = find(category_index, target_character)
 	if ix != -1:
 		return find(rewritten_categories[ix], inwordCh) != -1
 	else:
-		return inwordCh == tgtCh
+		return inwordCh == target_character
 
-func is_target(tgt, inword, i) -> bool: 
-	if find(tgt, "[") != -1:
+func is_target(target, inword, i) -> bool: 
+	if find(target, "[") != -1:
 		glen = 0
 		var inbracket = false
 		var foundinside = false
-		for j in tgt.length():
-			if tgt[j] == "[":
+		for j in target.length():
+			if target[j] == "[":
 				inbracket = true
-			elif tgt[j] == "]":
+			elif target[j] == "]":
 				if !foundinside:
 					return false
 				i += 1
@@ -168,27 +167,27 @@ func is_target(tgt, inword, i) -> bool:
 				if i >= inword.length():
 					return false
 				if !foundinside:
-					foundinside = tgt[j] == inword[i]
+					foundinside = target[j] == inword[i]
 			else:
 				if i >= inword.length():
 					return false
-				if tgt[j] != inword[i]:
+				if target[j] != inword[i]:
 					return false
 				i += 1
 				glen += 1
 	else:
-		glen = tgt.length()
+		glen = target.length()
 		for k in glen:
 			if i + k < inword.length():
-				if match_char_or_cat(inword[i + k], tgt[k]) == false:
+				if match_char_or_cat(inword[i + k], target[k]) == false:
 					return false
 		return true
 	return true
 
 # Does this environment match this rule?
-# That is, starting at inword[i], we have a substring matching env (with _ = tgt).
+# That is, starting at inword[i], we have a substring matching env (with _ = target).
 # General structure is: return false as soon as we have a mismatch.
-func _match(inword, i, tgt, env) -> bool:
+func _match(inword, i, target, env) -> bool:
 	var optional = false
 	gix = -1
 	# location of target
@@ -255,7 +254,7 @@ func _match(inword, i, tgt, env) -> bool:
 					if inword[k] == ' ':
 						break
 
-					if _match(inword, k, tgt, newenv):
+					if _match(inword, k, target, newenv):
 						anytrue = true
 					k += 1
 				if tempgix != -1:
@@ -267,29 +266,28 @@ func _match(inword, i, tgt, env) -> bool:
 			'_':
 				# Location of target 
 				gix = i
-				var gchar = ""
-				if tgt.length() == 0:
+				if target.length() == 0:
 					glen = 0
 
 				if i >= inword.length():
 					return false
 
-				var ix = find(category_index, tgt[0])
+				var ix = find(category_index, target[0])
 				if ix != -1:
 					# target is a category
 					gcat = find(rewritten_categories[ix], inword[i])
 					if gcat == -1:
 						return false
 					else:
-						glen = 0 if tgt.length() == 0 else 1
-						if tgt.length() > 1:
-							var tlen = tgt.length() - 1
-							if !is_target(tgt.substr(1, tlen - 1), inword, i + 1):
+						glen = 0 if target.length() == 0 else 1
+						if target.length() > 1:
+							var tlen = target.length() - 1
+							if !is_target(target.substr(1, tlen - 1), inword, i + 1):
 								return false
 							glen += tlen
-					i += tgt.length()
+					i += target.length()
 				else:
-					if !is_target(tgt, inword, i):
+					if !is_target(target, inword, i):
 						return false
 					i += glen
 			_:
@@ -339,7 +337,7 @@ func apply_rule(inword: String, r: int) -> String:
 	while i < inword.length() and inword[i] != '‣':
 		var x = _match(inword, i, thisrule[0], thisrule[2])
 		if x:
-			var tgt = thisrule[0]
+			var target = thisrule[0]
 			var repl = thisrule[1]
 
 			if thisrule.size() > 3:
@@ -384,7 +382,7 @@ func apply_rule(inword: String, r: int) -> String:
 			gix += glen
 			i = outword.length()
 
-			if tgt.length() == 0:
+			if target.length() == 0:
 				i += 1
 
 			outword += inword.substr(gix, inword.length() - (gix))
@@ -412,8 +410,7 @@ func transform(word: String) -> String:
 # and output it to the output file.
 func do_words() -> Array[String]:
 	var ret: Array[String]
-	var nWord = 0
-
+	
 	# Parse the input lexicon
 	var rewritten_lexicon = rewrite(lexicon)
 	var number_of_lexicon = rewritten_lexicon.size()
@@ -439,10 +436,6 @@ func do_words() -> Array[String]:
 			outs = outword
 
 			ret.append(unrewrite(outs, false))
-
-			nWord += 1
-
-
 	return ret
 
 # Compiles and applies rules
