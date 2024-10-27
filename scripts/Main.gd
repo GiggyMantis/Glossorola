@@ -16,8 +16,8 @@ func _ready():
 	save_file_button.pressed.connect(self._save_file_dialog)
 	new_project_button.pressed.connect(self._new_project)
 	translation_settings.item_selected.connect(self._translate)
-	_reload_parts_of_speech()
-	load_config_file()
+	_new_project()
+	$TabManager.current_tab = 0
 	
 func get_parts_of_speech():
 	return part_of_speech_list.text.split("\n")
@@ -49,12 +49,22 @@ func _new_project():
 	$TabManager/PROJECT_MENU/NameOfLanguage.text = ""
 	$TabManager/PROJECT_MENU/Autonym.text = ""
 	$TabManager/PROJECT_MENU/Langtype.selected = 0
-	$TabManager.current_tab = 1
+	
 	_reload_parts_of_speech()
+	_reload_sound_changes()
+	
+	$TabManager.current_tab = 1
 
 func _reload_parts_of_speech():
 	var f = FileAccess.open(default_parts_of_speech_filename, FileAccess.READ)
 	part_of_speech_list.text = f.get_as_text()
+
+func _reload_sound_changes():
+	$TabManager/SOUND_CHANGE_TOOL/Categories.text = ""
+	$TabManager/SOUND_CHANGE_TOOL/RewriteRules.text = ""
+	$TabManager/SOUND_CHANGE_TOOL/InputLexicon.text = ""
+	$TabManager/SOUND_CHANGE_TOOL/OutputLexicon.text = ""
+	$TabManager/SOUND_CHANGE_TOOL/RewriteOnOutput.button_pressed = true
 
 func load_lang(filename: String) -> Dictionary:
 	var load_file = FileAccess.open(filename, FileAccess.READ)
