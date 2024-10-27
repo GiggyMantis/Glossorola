@@ -45,6 +45,7 @@ func _save_to_file(filename: String):
 	save_lang(filename, collate_data())
 	
 func _new_project():
+	save_location = "unsaved.json"
 	$TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.delete_children()
 	$TabManager/PROJECT_MENU/NameOfLanguage.text = ""
 	$TabManager/PROJECT_MENU/Autonym.text = ""
