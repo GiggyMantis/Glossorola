@@ -6,8 +6,16 @@ extends Control
 @export var translation_settings: OptionButton
 @export var part_of_speech_list: TextEdit
 
-const default_parts_of_speech_filename = "res://config/default_parts_of_speech.txt"
-const config_filename = "config/options.cfg"
+const DEFAULT_PARTS_OF_SPEECH = "noun
+adjective
+adverb
+verb
+adposition
+interjection
+conjunction
+pronoun
+phrase"
+const CONFIG_FILENAME = "config/options.cfg"
 
 var save_location = "unsaved.json"
 
@@ -58,8 +66,7 @@ func _new_project():
 	$TabManager.current_tab = 1
 
 func _reload_parts_of_speech():
-	var f = FileAccess.open(default_parts_of_speech_filename, FileAccess.READ)
-	part_of_speech_list.text = f.get_as_text()
+	part_of_speech_list.text = DEFAULT_PARTS_OF_SPEECH
 
 func _reload_sound_changes():
 	$TabManager/SOUND_CHANGE_TOOL/Categories.text = ""
@@ -104,11 +111,11 @@ func save_config_file(language: int):
 	
 	config.set_value("Glossorola", "language", language)
 	
-	config.save(config_filename)
+	config.save(CONFIG_FILENAME)
 
 func load_config_file():
 	var config = ConfigFile.new()
-	var err = config.load(config_filename)
+	var err = config.load(CONFIG_FILENAME)
 	
 	# If the file didn't load, ignore.
 	if err != OK:

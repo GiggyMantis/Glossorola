@@ -1,14 +1,17 @@
 extends Control
 
-const IPA_CHARACTERS_FILE_LOCATION = "res://ipa_characters.txt"
+const IPA_CHARACTERS = "
+pbɓtdɗʈɖcɟʄȶȡkɡɠqɢʛʡʔmɱnɳɲȵŋɴʙⱱrɾɽʀɸβfvθðszʃʒʂʐçʝɕʑxɣχʁħʕʜʢhɦʍwɥʋɹɻjɰɬɮꞎlɫɭʎȴʟɺɧʘǀǃǂǁʦʣʧʤʨʥꭧꭦ
+iyɨʉɯuɪʏʊeøɘɵɤoəɛœɜɞʌɔɐæɶaɑɒɚɝ
+˩˨˧˦˥↓↑↗↘
+◌̊◌̈◌̽◌̃◌͊◌͋◌̚◌ᵊ◌͡◌◌ː◌ˑ◌̆◌ʰ◌˭◌ʼ◌ⁿ◌ˡ◌ʷ◌ʲ◌ˤ◌ˠ◌ˀ◌̥◌̬◌̤◌̰◌͓◌̨◌̹◌̜◌̮◌̼◌̪◌̺◌̻◌̟◌̠◌̩◌̯◌͜◌◌̙◌̘◌̞◌̝◌̴◌˞◌̋◌́◌̄◌̀◌̏◌᷈◌᷅◌᷄◌̂◌̌
+ˈˌ/[]∅|‖.‿⟨⟩
+"
 
 func _ready():
-	var load_file = FileAccess.open(IPA_CHARACTERS_FILE_LOCATION, FileAccess.READ)
-	var lines = load_file.get_as_text()
 	
 	var diacritic = false
-	
-	for char in lines:
+	for char in IPA_CHARACTERS:
 		# Ignore whitespace chars
 		if char.strip_edges(true, true).is_empty():
 			continue
