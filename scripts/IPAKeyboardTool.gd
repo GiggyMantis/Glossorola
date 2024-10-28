@@ -40,6 +40,8 @@ func _button_pressed(c: String):
 	$TextEdit.insert_text_at_caret(c.replace("◌",""))
 
 func _input(event):
+	if $TextEdit.hidden:
+		return
 	if event is InputEventKey and event.is_pressed():
 		var caret = Vector2i($TextEdit.get_caret_line(), $TextEdit.get_caret_column())
 		$TextEdit.grab_focus()
