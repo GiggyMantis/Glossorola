@@ -30,6 +30,10 @@ project/assembly_name="Glossorola"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+[gui]
+
+theme/custom_font="res://textures/NotoSans-Regular.ttf"
+
 [internationalization]
 
 locale/translations=PackedStringArray("res://translation/translation.en.translation", "res://translation/translation.es.translation", "res://translation/translation.pt_BR.translation")

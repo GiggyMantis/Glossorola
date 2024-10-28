@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3kp4yvs1tsvk"]
+[gd_scene load_steps=8 format=3 uid="uid://b3kp4yvs1tsvk"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_77o4d"]
 [ext_resource type="Texture2D" uid="uid://dqxenyuy7cq8p" path="res://textures/github-mark-white.svg" id="2_gxdx2"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dhiglb0caii3k" path="res://textures/email.svg" id="3_t7ds3"]
 [ext_resource type="Texture2D" uid="uid://b8nrxeivn87uy" path="res://textures/image.svg" id="4_2l70c"]
 [ext_resource type="Script" path="res://scripts/SoundChangeTool.gd" id="5_8aktb"]
+[ext_resource type="Script" path="res://scripts/IPAKeyboardTool.gd" id="7_y4eos"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("open_file_button", "save_file_button", "new_project_button", "translation_settings", "part_of_speech_list")]
 layout_mode = 3
@@ -32,7 +33,7 @@ color = Color(0.121569, 0.121569, 0.121569, 1)
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 40.0
-current_tab = 4
+current_tab = 5
 
 [node name="HOME_MENU" type="Control" parent="TabManager"]
 visible = false
@@ -210,12 +211,44 @@ script = ExtResource("3_ba2fa")
 add_button = NodePath("../../DictionaryAdd")
 delete_button = NodePath("../../DictionaryRemove")
 
+[node name="GRAMMAR_MODULE" type="Control" parent="TabManager"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="PartOfSpeechList" type="TextEdit" parent="TabManager/GRAMMAR_MODULE"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 48.0
+offset_right = 368.0
+offset_bottom = 538.0
+tooltip_text = "ADD_WORD_CLASS"
+text = "noun
+adjective
+adverb
+verb
+adposition
+interjection
+conjunction
+pronoun
+phrase"
+placeholder_text = "ADD_WORD_CLASS"
+
+[node name="BriefGrammarOverview" type="TextEdit" parent="TabManager/GRAMMAR_MODULE"]
+layout_mode = 0
+offset_left = 426.0
+offset_top = 48.0
+offset_right = 1126.0
+offset_bottom = 538.0
+tooltip_text = "BRIEF_GRAMMAR_OVERVIEW_TOOLTIP"
+placeholder_text = "BRIEF_GRAMMAR_OVERVIEW_TOOLTIP"
+
 [node name="SOUND_CHANGE_TOOL" type="Control" parent="TabManager" node_paths=PackedStringArray("button")]
 visible = false
 layout_mode = 2
 script = ExtResource("5_8aktb")
 button = NodePath("Apply")
-metadata/_tab_index = 3
+metadata/_tab_index = 4
 
 [node name="Categories" type="TextEdit" parent="TabManager/SOUND_CHANGE_TOOL"]
 layout_mode = 1
@@ -280,33 +313,22 @@ offset_bottom = 78.0
 button_pressed = true
 text = "APPLY_REWRITE_OUTPUT"
 
-[node name="GRAMMAR_MODULE" type="Control" parent="TabManager"]
+[node name="IPA_KEYBOARD_TOOL" type="Control" parent="TabManager"]
 layout_mode = 2
-metadata/_tab_index = 4
+script = ExtResource("7_y4eos")
+metadata/_tab_index = 5
 
-[node name="PartOfSpeechList" type="TextEdit" parent="TabManager/GRAMMAR_MODULE"]
+[node name="Keyboard" type="GridContainer" parent="TabManager/IPA_KEYBOARD_TOOL"]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 48.0
-offset_right = 368.0
-offset_bottom = 538.0
-tooltip_text = "ADD_WORD_CLASS"
-text = "noun
-adjective
-adverb
-verb
-adposition
-interjection
-conjunction
-pronoun
-phrase"
-placeholder_text = "ADD_WORD_CLASS"
+offset_left = 15.0
+offset_top = 200.0
+offset_right = 815.0
+offset_bottom = 500.0
+columns = 20
 
-[node name="BriefGrammarOverview" type="TextEdit" parent="TabManager/GRAMMAR_MODULE"]
+[node name="TextEdit" type="TextEdit" parent="TabManager/IPA_KEYBOARD_TOOL"]
 layout_mode = 0
-offset_left = 426.0
-offset_top = 48.0
-offset_right = 1126.0
-offset_bottom = 538.0
-tooltip_text = "BRIEF_GRAMMAR_OVERVIEW_TOOLTIP"
-placeholder_text = "BRIEF_GRAMMAR_OVERVIEW_TOOLTIP"
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 815.0
+offset_bottom = 180.0
