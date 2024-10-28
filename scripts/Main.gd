@@ -24,8 +24,13 @@ func _ready():
 	save_file_button.pressed.connect(self._save_file_dialog)
 	new_project_button.pressed.connect(self._new_project)
 	translation_settings.item_selected.connect(self._translate)
+	
+	load_config_file()
+	_translate($TabManager/HOME_MENU/TranslationSettings.selected)
+	
 	_new_project()
 	$TabManager.current_tab = 0
+	
 	
 func get_parts_of_speech():
 	return part_of_speech_list.text.split("\n")
