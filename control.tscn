@@ -33,7 +33,7 @@ color = Color(0.121569, 0.121569, 0.121569, 1)
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 40.0
-current_tab = 5
+current_tab = 6
 
 [node name="HOME_MENU" type="Control" parent="TabManager"]
 visible = false
@@ -243,12 +243,17 @@ offset_bottom = 538.0
 tooltip_text = "BRIEF_GRAMMAR_OVERVIEW_TOOLTIP"
 placeholder_text = "BRIEF_GRAMMAR_OVERVIEW_TOOLTIP"
 
+[node name="PHONOLOGY_MODULE" type="Control" parent="TabManager"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 4
+
 [node name="SOUND_CHANGE_TOOL" type="Control" parent="TabManager" node_paths=PackedStringArray("button")]
 visible = false
 layout_mode = 2
 script = ExtResource("5_8aktb")
 button = NodePath("Apply")
-metadata/_tab_index = 4
+metadata/_tab_index = 5
 
 [node name="Categories" type="TextEdit" parent="TabManager/SOUND_CHANGE_TOOL"]
 layout_mode = 1
@@ -316,7 +321,7 @@ text = "APPLY_REWRITE_OUTPUT"
 [node name="IPA_KEYBOARD_TOOL" type="Control" parent="TabManager"]
 layout_mode = 2
 script = ExtResource("7_y4eos")
-metadata/_tab_index = 5
+metadata/_tab_index = 6
 
 [node name="Keyboard" type="GridContainer" parent="TabManager/IPA_KEYBOARD_TOOL"]
 layout_mode = 0
