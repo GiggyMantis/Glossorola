@@ -37,4 +37,11 @@ func create_button(c: String):
 	$Keyboard.add_child(b)
 
 func _button_pressed(c: String):
-	$TextEdit.text += c.replace("◌","")
+	$TextEdit.insert_text_at_caret(c.replace("◌",""))
+
+func _input(event):
+	if event is InputEventKey and event.is_pressed():
+		var caret = Vector2i($TextEdit.get_caret_line(), $TextEdit.get_caret_column())
+		$TextEdit.grab_focus()
+		$TextEdit.set_caret_line(caret.x)
+		$TextEdit.set_caret_column(caret.y)
