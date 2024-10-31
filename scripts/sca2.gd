@@ -15,14 +15,14 @@ var number_of_rules
 var category_index = ""
 
 func find(s: String, ch: String) -> int:
-	for i in s.length():
+	for i in len(s):
 		if (s[i] == ch):
 			return i
 	return -1
 
 func reverse(s: String) -> String:
 	var r = "" 
-	for i in range(s.length()-1, -1, -1):
+	for i in range(len(s)-1, -1, -1):
 		r += s[i]
 	return r
 
@@ -32,7 +32,7 @@ func rewrite(s: String):
 
 	var rewrite_rules_array = rewrite_rules.split("\n")
 	for rule in rewrite_rules_array:
-		if rule.length() > 2 and find(rule, "|") != -1:
+		if len(rule) > 2 and find(rule, "|") != -1:
 			var parse = rule.split("|")
 			var regex = RegEx.create_from_string(parse[0])
 			ret = regex.sub(ret, parse[1], true)
@@ -51,7 +51,7 @@ func unrewrite(s: String, rev: bool):
 	var p2 = 1 if rev else 0
 
 	for rule in rewrite_rules_array:
-		if rule.length() > 2 and find(rule, "|") != -1:
+		if len(rule) > 2 and find(rule, "|") != -1:
 			var parse = rule.split("|")
 			var regex = RegEx.create_from_string(parse[p1])
 			ret = regex.sub(ret, parse[p2], true)
@@ -62,7 +62,7 @@ func unrewrite(s: String, rev: bool):
 func compile() -> void:
 	# Parse the category list
 	rewritten_categories = rewrite(categories);
-	number_of_categories = rewritten_categories.size()
+	number_of_categories = len(rewritten_categories)
 	var bad_categories = false;
 
 	# Make sure cats have structure like V=aeiou, if they exist at all
@@ -71,13 +71,13 @@ func compile() -> void:
 		for w in number_of_categories:
 			# A final empty cat can be ignored
 			var thiscat = rewritten_categories[w]
-			if thiscat[thiscat.length() - 1] == "\n":
-				thiscat = thiscat.substr(0, thiscat.length() - 1)
+			if thiscat[len(thiscat) - 1] == "\n":
+				thiscat = thiscat.substr(0, len(thiscat) - 1)
 				rewritten_categories[w] = thiscat
 				
-			if thiscat.length() == 0 and w == number_of_categories - 1:
+			if len(thiscat) == 0 and w == number_of_categories - 1:
 				number_of_categories -= 1
-			elif thiscat.length() < 3:
+			elif len(thiscat) < 3:
 				bad_categories = true
 			else:
 				if find(thiscat, "=") == -1:
@@ -87,14 +87,14 @@ func compile() -> void:
 
 	# Parse the sound changes 
 	rewritten_rules = rewrite(rules)
-	number_of_rules = rewritten_rules.size()
+	number_of_rules = len(rewritten_rules)
 	
 	# Remove trailing returns
 	var w = 0
 	while w < number_of_rules:
 		var t = rewritten_rules[w]
-		if t[t.length() - 1] == "\n":
-			rewritten_rules[w] = t.substr(0, t.length() - 1)
+		if t[len(t) - 1] == "\n":
+			rewritten_rules[w] = t.substr(0, len(t) - 1)
 			t = rewritten_rules[w]
 
 		# Intermediate results marker has to stay in rules
@@ -102,14 +102,14 @@ func compile() -> void:
 			continue
 
 		# Sanity checks for valid rules
-		var valid = t.length() > 0 and find(t, "_") != -1
+		var valid = len(t) > 0 and find(t, "_") != -1
 		if valid:
 			var thisrule = t.replace("→","/").split("/") # Slight difference from zompist.com implementation
-			valid = thisrule.size() >= 2
+			valid = len(thisrule) >= 2
 			if valid:
 				# Insertions must have repl & nonuniversal env
-				if thisrule[0].length() == 0:
-					valid = thisrule[1].length() > 0 and thisrule[2] != "_"
+				if len(thisrule[0]) == 0:
+					valid = len(thisrule[1]) > 0 and thisrule[2] != "_"
 
 		# Invalid rules: move 'em all up
 		if not valid:
@@ -138,7 +138,7 @@ func at_space(inword: String, i, global_ix) -> bool:
 			return true
 	else:
 		# After _ this must match end of word
-		if i >= inword.length() or inword[i] == ' ':
+		if i >= len(inword) or inword[i] == ' ':
 			return true
 	return false
 
@@ -155,7 +155,7 @@ func is_target(target, inword, i) -> bool:
 		glen = 0
 		var inbracket = false
 		var foundinside = false
-		for j in target.length():
+		for j in len(target):
 			if target[j] == "[":
 				inbracket = true
 			elif target[j] == "]":
@@ -165,21 +165,21 @@ func is_target(target, inword, i) -> bool:
 				glen += 1
 				inbracket = false
 			elif inbracket:
-				if i >= inword.length():
+				if i >= len(inword):
 					return false
 				if !foundinside:
 					foundinside = target[j] == inword[i]
 			else:
-				if i >= inword.length():
+				if i >= len(inword):
 					return false
 				if target[j] != inword[i]:
 					return false
 				i += 1
 				glen += 1
 	else:
-		glen = target.length()
+		glen = len(target)
 		for k in glen:
-			if i + k < inword.length():
+			if i + k < len(inword):
 				if match_char_or_cat(inword[i + k], target[k]) == false:
 					return false
 		return true
@@ -195,14 +195,14 @@ func _match(inword, i, target, env) -> bool:
 
 	# Advance through env.  i will change too, but not always one-for-one
 	var j = 0
-	while j < env.length():
+	while j < len(env):
 		print(env[j])
 		match (env[j]):
 			"[":
 				# Nonce category
 				var found = false
 				j += 1
-				while j < env.length() and env[j] != "]":
+				while j < len(env) and env[j] != "]":
 					j += 1
 					if found:
 						continue
@@ -216,7 +216,7 @@ func _match(inword, i, target, env) -> bool:
 						found = true
 						i += 1
 				else:
-					found = i < inword.length() and env[j] == inword[i]
+					found = i < len(inword) and env[j] == inword[i]
 					if found:
 						i += 1
 				if !found and !optional:
@@ -233,7 +233,7 @@ func _match(inword, i, target, env) -> bool:
 					return false
 			'²':
 				# Degemination 
-				if i == 0 or i >= inword.length() or inword[i] != inword[i - 1]:
+				if i == 0 or i >= len(inword) or inword[i] != inword[i - 1]:
 					return false
 				i += 1
 			'…':
@@ -243,7 +243,7 @@ func _match(inword, i, target, env) -> bool:
 				var tempglen = glen
 				var anytrue = false
 
-				var newenv = env.substr(j + 1, env.length() - (j) - 1)
+				var newenv = env.substr(j + 1, len(env) - (j) - 1)
 
 				# This is a rule like ...V.
 				# Get a new environment from what's past the wildcard.
@@ -251,7 +251,7 @@ func _match(inword, i, target, env) -> bool:
 				# At the first match if any, we're satisfied and leave.
 
 				var k = i
-				while k < inword.length() and anytrue == false:
+				while k < len(inword) and anytrue == false:
 					if inword[k] == ' ':
 						break
 
@@ -267,10 +267,10 @@ func _match(inword, i, target, env) -> bool:
 			'_':
 				# Location of target 
 				gix = i
-				if target.length() == 0:
+				if len(target) == 0:
 					glen = 0
 
-				if i >= inword.length():
+				if i >= len(inword):
 					return false
 
 				var ix = find(category_index, target[0])
@@ -280,13 +280,13 @@ func _match(inword, i, target, env) -> bool:
 					if gcat == -1:
 						return false
 					else:
-						glen = 0 if target.length() == 0 else 1
-						if target.length() > 1:
-							var tlen = target.length() - 1
+						glen = 0 if len(target) == 0 else 1
+						if len(target) > 1:
+							var tlen = len(target) - 1
 							if !is_target(target.substr(1, tlen - 1), inword, i + 1):
 								return false
 							glen += tlen
-					i += target.length()
+					i += len(target)
 				else:
 					if !is_target(target, inword, i):
 						return false
@@ -294,7 +294,7 @@ func _match(inword, i, target, env) -> bool:
 			_:
 				# elsewhere in the environment
 
-				var cont = i < inword.length()
+				var cont = i < len(inword)
 				if cont:
 					cont = match_char_or_cat(inword[i], env[j])
 					if cont:
@@ -308,10 +308,10 @@ func category_sub(repl):
 	var outs = ""
 	var lastch = ""
 	
-	for i in repl.length():
+	for i in len(repl):
 		var ix = find(category_index, repl[i])
 		if ix != -1:
-			if gcat < rewritten_categories[ix].length():
+			if gcat < len(rewritten_categories[ix]):
 				lastch = rewritten_categories[ix][gcat]
 				outs += lastch
 		elif repl[i] == '²':
@@ -335,13 +335,13 @@ func apply_rule(inword: String, r: int) -> String:
 	var thisrule = t.split("/")
 
 	var i = 0
-	while i < inword.length() and inword[i] != '‣':
+	while i < len(inword) and inword[i] != '‣':
 		var x = _match(inword, i, thisrule[0], thisrule[2])
 		if x:
 			var target = thisrule[0]
 			var repl = thisrule[1]
 
-			if thisrule.size() > 3:
+			if len(thisrule) > 3:
 				# There's an exception
 				var slix = find(thisrule[3], "_")
 				if slix != -1:
@@ -372,7 +372,7 @@ func apply_rule(inword: String, r: int) -> String:
 
 			outword = inword.substr(0, gix)
 
-			if repl.length() > 0:
+			if len(repl) > 0:
 				if repl == "\\\\":
 					var found = inword.substr(gix, glen - gix)
 					outword += reverse(found)
@@ -381,12 +381,12 @@ func apply_rule(inword: String, r: int) -> String:
 				else:
 					outword += repl
 			gix += glen
-			i = outword.length()
+			i = len(outword)
 
-			if target.length() == 0:
+			if len(target) == 0:
 				i += 1
 
-			outword += inword.substr(gix, inword.length() - (gix))
+			outword += inword.substr(gix, len(inword) - (gix))
 
 			inword = outword
 		else:
@@ -400,7 +400,7 @@ func apply_rule(inword: String, r: int) -> String:
 # Transform a single word
 func transform(word: String) -> String:
 	var inword = word
-	if inword.length() > 0:
+	if len(inword) > 0:
 		# Try out each rule in turn
 		for r in number_of_rules:
 			inword = apply_rule(inword, r)
@@ -414,24 +414,24 @@ func do_words() -> Array[String]:
 	
 	# Parse the input lexicon
 	var rewritten_lexicon = rewrite(lexicon)
-	var number_of_lexicon = rewritten_lexicon.size()
+	var number_of_lexicon = len(rewritten_lexicon)
 
 	for w in number_of_lexicon:
 		var inword = rewritten_lexicon[w]
 
-		if inword.length() > 0:
+		if len(inword) > 0:
 			# remove trailing blanks
-			while inword[inword.length() - 1] == " ":
-				inword = inword.substr(0, inword.length() - 1)
+			while inword[len(inword) - 1] == " ":
+				inword = inword.substr(0, len(inword) - 1)
 			
-			if inword[inword.length() - 1] == "\n":
-				inword = inword.substr(0, inword.length() - 1)
+			if inword[len(inword) - 1] == "\n":
+				inword = inword.substr(0, len(inword) - 1)
 
 			var outword = transform(inword)
 			var outs
 
 			var parts = inword.split(" ‣")
-			if parts.size() > 1:
+			if len(parts) > 1:
 				inword = parts[0]
 
 			outs = outword

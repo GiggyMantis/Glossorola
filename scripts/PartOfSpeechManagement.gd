@@ -10,7 +10,7 @@ func _reload():
 	var to_select = -1
 	pos_selector.clear()
 	var poses = get_node("../../../../..").get_parts_of_speech()
-	for i in poses.size():
+	for i in len(poses):
 		if poses[i] == old_selected:
 			to_select = i
 		pos_selector.add_item(poses[i],i)
