@@ -37,3 +37,4 @@ SOUND_CHANGES,Sound Changes,Cambios de Sonido,Mudanças de Som
 APPLY_REWRITE_OUTPUT,Apply Rewrite Rules on Output?,¿Sustituto de Salida?,Substituto para saída?
 ADD_WORD_CLASS,Add Part of Speech or Word Class,Agregar Parte del Discurso o Clase de Palabra,Adicionar Classe Gramatical
 BRIEF_GRAMMAR_OVERVIEW_TOOLTIP,Brief Grammar Overview\ne.g. "English is a Germanic language spoken across the world...",Gramática Breve\np.ej. "Español es una idioma romance que se habla en América Latina e Iberia...",Gramática Breve\npor exemplo; "Português é uma língua românica que é falada no Brasil e em Portugal..."
+CONVERT_FROM_XSAMPA,Convert from X-Sampa,Convertir de "X-Sampa",Converter de "X-Sampa"

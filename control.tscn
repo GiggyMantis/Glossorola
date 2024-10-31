@@ -318,9 +318,10 @@ offset_bottom = 78.0
 button_pressed = true
 text = "APPLY_REWRITE_OUTPUT"
 
-[node name="IPA_KEYBOARD_TOOL" type="Control" parent="TabManager"]
+[node name="IPA_KEYBOARD_TOOL" type="Control" parent="TabManager" node_paths=PackedStringArray("convert_xsampa_button")]
 layout_mode = 2
 script = ExtResource("7_y4eos")
+convert_xsampa_button = NodePath("ConvertFromXSampa")
 metadata/_tab_index = 6
 
 [node name="Keyboard" type="GridContainer" parent="TabManager/IPA_KEYBOARD_TOOL"]
@@ -337,3 +338,11 @@ offset_left = 15.0
 offset_top = 15.0
 offset_right = 815.0
 offset_bottom = 180.0
+
+[node name="ConvertFromXSampa" type="Button" parent="TabManager/IPA_KEYBOARD_TOOL"]
+layout_mode = 0
+offset_left = 850.0
+offset_top = 15.0
+offset_right = 950.0
+offset_bottom = 45.0
+text = "CONVERT_FROM_XSAMPA"
