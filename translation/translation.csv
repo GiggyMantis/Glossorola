@@ -33,6 +33,8 @@ REWRITE_RULES,Rewrite Rules,Sustituciones,Substituições
 INPUT_LEXICON,Input Lexicon,Léxico de Entrada,Léxico de Entrada
 OUTPUT_LEXICON,Output Lexicon,Léxico de Salida,Léxico de Saída
 APPLY_SOUND_CHANGES,Apply Sound Changes,Aplicar,Aplicar
+APPLY_SOUND_CHANGES_DICTIONARY,Apply to Dictionary (Main Field),Aplicar al Diccionario (Campo Principal),Aplicar ao Dicionário (Campo Principal)
+APPLY_SOUND_CHANGES_PRONUNCIATION,Apply to Dictionary (Pronunciation Field),Aplicar al Diccionario (Campo de pron.),Aplicar ao Dicionário (Campo de Pronúncia)
 SOUND_CHANGES,Sound Changes,Cambios de Sonido,Mudanças de Som
 APPLY_REWRITE_OUTPUT,Apply Rewrite Rules on Output?,¿Sustituto de Salida?,Substituto para saída?
 ADD_WORD_CLASS,Add Part of Speech or Word Class,Agregar Parte del Discurso o Clase de Palabra,Adicionar Classe Gramatical

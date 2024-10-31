@@ -59,7 +59,7 @@ func _save_to_file(filename: String):
 	
 func _new_project():
 	save_location = "unsaved.json"
-	$TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.delete_children()
+	%DictionaryContainer.delete_children()
 	$TabManager/PROJECT_MENU/NameOfLanguage.text = ""
 	$TabManager/PROJECT_MENU/Autonym.text = ""
 	$TabManager/PROJECT_MENU/Langtype.selected = 0
@@ -135,7 +135,7 @@ func collate_data() -> Dictionary:
 	info["Project/LanguageName"] = $TabManager/PROJECT_MENU/NameOfLanguage.text
 	info["Project/Autonym"] = $TabManager/PROJECT_MENU/Autonym.text
 	info["Project/LanguageType"] = $TabManager/PROJECT_MENU/Langtype.selected
-	info["Project/Dictionary"] = $TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.save_data()
+	info["Project/Dictionary"] = %DictionaryContainer.save_data()
 	info["Grammar/PartsOfSpeech"] = get_parts_of_speech()
 	info["Grammar/BriefGrammarbook"] = $TabManager/GRAMMAR_MODULE/BriefGrammarOverview.text
 	info["SCA/Categories"] = $TabManager/SOUND_CHANGE_TOOL/Categories.text
@@ -152,7 +152,7 @@ func load_data(info: Dictionary):
 				$TabManager/PROJECT_MENU/NameOfLanguage.text = info["Project/LanguageName"]
 				$TabManager/PROJECT_MENU/Autonym.text = info["Project/Autonym"]
 				$TabManager/PROJECT_MENU/Langtype.selected = info["Project/LanguageType"]
-				$TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.reload(info["Project/Dictionary"])
+				%DictionaryContainer.reload(info["Project/Dictionary"])
 				$TabManager/GRAMMAR_MODULE/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
 				$TabManager/GRAMMAR_MODULE/BriefGrammarOverview.text = info["Grammar/BriefGrammarbook"]
 				$TabManager/SOUND_CHANGE_TOOL/Categories.text = info["SCA/Categories"]
@@ -163,7 +163,7 @@ func load_data(info: Dictionary):
 				$TabManager/PROJECT_MENU/NameOfLanguage.text = info["LanguageName"]
 				$TabManager/PROJECT_MENU/Autonym.text = info["Autonym"]
 				$TabManager/PROJECT_MENU/Langtype.selected = info["LanguageType"]
-				$TabManager/DICTIONARY_MODULE/DictionaryScrollContainer/DictionaryContainer.reload(info["Dictionary"])
+				%DictionaryContainer.reload(info["Dictionary"])
 				$TabManager/GRAMMAR_MODULE/PartOfSpeechList.text = "\n".join(info["PartsOfSpeech"])
 				$TabManager/GRAMMAR_MODULE/BriefGrammarOverview.text = ""
 	else:

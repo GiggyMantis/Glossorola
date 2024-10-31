@@ -33,7 +33,7 @@ color = Color(0.121569, 0.121569, 0.121569, 1)
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 40.0
-current_tab = 6
+current_tab = 5
 
 [node name="HOME_MENU" type="Control" parent="TabManager"]
 visible = false
@@ -206,6 +206,7 @@ offset_right = 1020.0
 offset_bottom = 557.0
 
 [node name="DictionaryContainer" type="VBoxContainer" parent="TabManager/DICTIONARY_MODULE/DictionaryScrollContainer" node_paths=PackedStringArray("add_button", "delete_button")]
+unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("3_ba2fa")
 add_button = NodePath("../../DictionaryAdd")
@@ -248,11 +249,12 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
-[node name="SOUND_CHANGE_TOOL" type="Control" parent="TabManager" node_paths=PackedStringArray("button")]
-visible = false
+[node name="SOUND_CHANGE_TOOL" type="Control" parent="TabManager" node_paths=PackedStringArray("apply_lexicon", "apply_lemma", "apply_ipa")]
 layout_mode = 2
 script = ExtResource("5_8aktb")
-button = NodePath("Apply")
+apply_lexicon = NodePath("Apply")
+apply_lemma = NodePath("ApplyDictionary")
+apply_ipa = NodePath("ApplyDictionaryPronunciation")
 metadata/_tab_index = 5
 
 [node name="Categories" type="TextEdit" parent="TabManager/SOUND_CHANGE_TOOL"]
@@ -303,11 +305,30 @@ editable = false
 
 [node name="Apply" type="Button" parent="TabManager/SOUND_CHANGE_TOOL"]
 layout_mode = 0
-offset_left = 788.0
-offset_top = 339.0
-offset_right = 991.0
-offset_bottom = 412.0
+offset_left = 784.48
+offset_top = 300.0
+offset_right = 987.48
+offset_bottom = 340.75
 text = "APPLY_SOUND_CHANGES"
+alignment = 0
+
+[node name="ApplyDictionary" type="Button" parent="TabManager/SOUND_CHANGE_TOOL"]
+layout_mode = 0
+offset_left = 784.48
+offset_top = 350.0
+offset_right = 1086.48
+offset_bottom = 390.75
+text = "APPLY_SOUND_CHANGES_DICTIONARY"
+alignment = 0
+
+[node name="ApplyDictionaryPronunciation" type="Button" parent="TabManager/SOUND_CHANGE_TOOL"]
+layout_mode = 0
+offset_left = 784.48
+offset_top = 400.0
+offset_right = 1123.48
+offset_bottom = 440.75
+text = "APPLY_SOUND_CHANGES_PRONUNCIATION"
+alignment = 0
 
 [node name="RewriteOnOutput" type="CheckButton" parent="TabManager/SOUND_CHANGE_TOOL"]
 layout_mode = 0
@@ -319,6 +340,7 @@ button_pressed = true
 text = "APPLY_REWRITE_OUTPUT"
 
 [node name="IPA_KEYBOARD_TOOL" type="Control" parent="TabManager" node_paths=PackedStringArray("convert_xsampa_button")]
+visible = false
 layout_mode = 2
 script = ExtResource("7_y4eos")
 convert_xsampa_button = NodePath("ConvertFromXSampa")

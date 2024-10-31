@@ -15,7 +15,7 @@ func delete_children():
 	for child in get_children():
 		child.queue_free()
 
-func reload(list):
+func reload(list: Array[Dictionary]):
 	delete_children()
 	for item in list:
 		var item_node = word_node.instantiate()
