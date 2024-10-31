@@ -1,12 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://b3kp4yvs1tsvk"]
+[gd_scene load_steps=12 format=3 uid="uid://b3kp4yvs1tsvk"]
 
-[ext_resource type="Script" path="res://scripts/Main.gd" id="1_77o4d"]
-[ext_resource type="Texture2D" uid="uid://dqxenyuy7cq8p" path="res://textures/github-mark-white.svg" id="2_gxdx2"]
-[ext_resource type="Script" path="res://scripts/DictionaryContainer.gd" id="3_ba2fa"]
-[ext_resource type="Texture2D" uid="uid://dhiglb0caii3k" path="res://textures/email.svg" id="3_t7ds3"]
-[ext_resource type="Texture2D" uid="uid://b8nrxeivn87uy" path="res://textures/image.svg" id="4_2l70c"]
-[ext_resource type="Script" path="res://scripts/SoundChangeTool.gd" id="5_8aktb"]
-[ext_resource type="Script" path="res://scripts/IPAKeyboardTool.gd" id="7_y4eos"]
+[ext_resource type="Script" path="res://scripts/Main.gd" id="1_2mafl"]
+[ext_resource type="Texture2D" uid="uid://dqxenyuy7cq8p" path="res://textures/github-mark-white.svg" id="2_dhs75"]
+[ext_resource type="Texture2D" uid="uid://dhiglb0caii3k" path="res://textures/email.svg" id="3_05c37"]
+[ext_resource type="Texture2D" uid="uid://b8nrxeivn87uy" path="res://textures/image.svg" id="4_ofq1y"]
+[ext_resource type="Script" path="res://scripts/DictionaryContainer.gd" id="5_bcwqd"]
+[ext_resource type="Script" path="res://scripts/PhonologyContainer.gd" id="6_0ik07"]
+[ext_resource type="PackedScene" uid="uid://ddlijlo3awa1" path="res://scenes/table/table.tscn" id="7_7j8ct"]
+[ext_resource type="Script" path="res://scripts/SoundChangeTool.gd" id="8_3i30n"]
+[ext_resource type="Script" path="res://scripts/DataFrame.gd" id="8_kierl"]
+[ext_resource type="Script" path="res://scripts/IPAKeyboardTool.gd" id="9_f2pyp"]
+
+[sub_resource type="Resource" id="Resource_628lb"]
+script = ExtResource("8_kierl")
+data = [["Hello"]]
+columns = PackedStringArray("Test")
 
 [node name="Control" type="Control" node_paths=PackedStringArray("open_file_button", "save_file_button", "new_project_button", "translation_settings", "part_of_speech_list")]
 layout_mode = 3
@@ -15,7 +23,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_77o4d")
+script = ExtResource("1_2mafl")
 open_file_button = NodePath("TabManager/HOME_MENU/OPEN_FILE")
 save_file_button = NodePath("TabManager/HOME_MENU/SAVE_FILE")
 new_project_button = NodePath("TabManager/HOME_MENU/NEW_PROJECT")
@@ -33,7 +41,7 @@ color = Color(0.121569, 0.121569, 0.121569, 1)
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 40.0
-current_tab = 5
+current_tab = 4
 
 [node name="HOME_MENU" type="Control" parent="TabManager"]
 visible = false
@@ -80,7 +88,7 @@ uri = "https://github.com/GiggyMantis/Glossorola"
 layout_mode = 0
 offset_right = 50.0
 offset_bottom = 50.0
-texture = ExtResource("2_gxdx2")
+texture = ExtResource("2_dhs75")
 expand_mode = 2
 
 [node name="Email Link" type="LinkButton" parent="TabManager/HOME_MENU"]
@@ -99,7 +107,7 @@ uri = "mailto:giggymantis@gmail.com"
 layout_mode = 0
 offset_right = 47.37
 offset_bottom = 34.219
-texture = ExtResource("3_t7ds3")
+texture = ExtResource("3_05c37")
 expand_mode = 2
 
 [node name="Label" type="Label" parent="TabManager/HOME_MENU/Email Link"]
@@ -129,7 +137,7 @@ offset_left = -76.0
 offset_top = -22.0
 offset_right = 22.6667
 offset_bottom = 52.0
-texture = ExtResource("4_2l70c")
+texture = ExtResource("4_ofq1y")
 expand_mode = 3
 
 [node name="PROJECT_MENU" type="Control" parent="TabManager"]
@@ -208,7 +216,7 @@ offset_bottom = 557.0
 [node name="DictionaryContainer" type="VBoxContainer" parent="TabManager/DICTIONARY_MODULE/DictionaryScrollContainer" node_paths=PackedStringArray("add_button", "delete_button")]
 unique_name_in_owner = true
 layout_mode = 2
-script = ExtResource("3_ba2fa")
+script = ExtResource("5_bcwqd")
 add_button = NodePath("../../DictionaryAdd")
 delete_button = NodePath("../../DictionaryRemove")
 
@@ -245,13 +253,60 @@ tooltip_text = "BRIEF_GRAMMAR_OVERVIEW_TOOLTIP"
 placeholder_text = "BRIEF_GRAMMAR_OVERVIEW_TOOLTIP"
 
 [node name="PHONOLOGY_MODULE" type="Control" parent="TabManager"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
+[node name="Vowels" type="Control" parent="TabManager/PHONOLOGY_MODULE"]
+layout_mode = 1
+anchors_preset = 0
+offset_bottom = 553.0
+script = ExtResource("6_0ik07")
+
+[node name="Background" type="Panel" parent="TabManager/PHONOLOGY_MODULE/Vowels"]
+layout_mode = 1
+offset_left = 37.0
+offset_top = 71.0
+offset_right = 562.0
+offset_bottom = 571.0
+
+[node name="Table" parent="TabManager/PHONOLOGY_MODULE/Vowels/Background" instance=ExtResource("7_7j8ct")]
+layout_mode = 1
+data = SubResource("Resource_628lb")
+editable = true
+
+[node name="Consonants" type="Control" parent="TabManager/PHONOLOGY_MODULE"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_bottom = 553.0
+grow_horizontal = 2
+script = ExtResource("6_0ik07")
+
+[node name="Background" type="Panel" parent="TabManager/PHONOLOGY_MODULE/Consonants"]
+layout_mode = 1
+offset_left = 12.0
+offset_top = 71.0
+offset_right = 537.0
+offset_bottom = 571.0
+
+[node name="Table" parent="TabManager/PHONOLOGY_MODULE/Consonants/Background" instance=ExtResource("7_7j8ct")]
+layout_mode = 1
+data = SubResource("Resource_628lb")
+editable = true
+
+[node name="Lock" type="CheckButton" parent="TabManager/PHONOLOGY_MODULE"]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 11.0
+offset_right = 128.0
+offset_bottom = 42.0
+text = "LOCK"
+
 [node name="SOUND_CHANGE_TOOL" type="Control" parent="TabManager" node_paths=PackedStringArray("apply_lexicon", "apply_lemma", "apply_ipa")]
+visible = false
 layout_mode = 2
-script = ExtResource("5_8aktb")
+script = ExtResource("8_3i30n")
 apply_lexicon = NodePath("Apply")
 apply_lemma = NodePath("ApplyDictionary")
 apply_ipa = NodePath("ApplyDictionaryPronunciation")
@@ -342,7 +397,7 @@ text = "APPLY_REWRITE_OUTPUT"
 [node name="IPA_KEYBOARD_TOOL" type="Control" parent="TabManager" node_paths=PackedStringArray("convert_xsampa_button")]
 visible = false
 layout_mode = 2
-script = ExtResource("7_y4eos")
+script = ExtResource("9_f2pyp")
 convert_xsampa_button = NodePath("ConvertFromXSampa")
 metadata/_tab_index = 6
 

@@ -1,24 +1,27 @@
-extends GridContainer
-
-@export var add_button: Button
-@export var delete_button: Button
+extends Node
 
 func _ready():
-	add_button.pressed.connect(self._add_new)
-	delete_button.pressed.connect(self._delete)
+	get_node("../Lock").pressed.connect(self.lock)
+	reload()	
 
-func reload(list: Array[String]):
-	for child in get_children():
-		child.queue_free()
-	for item in list:
-		var item_node = LineEdit.new()
-		item_node.text = item
-		add_child(item_node)
+func get_data() -> Dictionary:
+	return $Background/Table.data._to_dictionary()
 
-func _add_new():
-	add_child(LineEdit.new())
+func from_data(data: Dictionary) -> void:
+	$Background/Table.data = DataFrame._from_dictionary(data)
+	$Background/Table.render()
 
-func _delete():
-	if get_child_count() == 0:
-		return
-	get_children()[get_child_count() - 1].queue_free()
+func lock():
+	$Background/Table.editable = not get_node("../Lock").button_pressed
+	$Background/Table.render()
+
+func reload():
+	get_node("../Lock").button_pressed = false
+	
+	var columns = [name]
+	var data = [
+		[""]
+	]
+	
+	$Background/Table.data = DataFrame.New(data, columns)
+	$Background/Table.render()

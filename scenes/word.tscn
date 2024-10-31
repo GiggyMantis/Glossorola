@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://bojatcy60ut07"]
 
-[ext_resource type="Script" path="res://scripts/PartOfSpeechManagement.gd" id="1_b8vcb"]
+[ext_resource type="Script" path="res://scripts/PartOfSpeechManagement.gd" id="1_k016h"]
 
 [node name="Word" type="HBoxContainer" node_paths=PackedStringArray("pos_selector")]
-script = ExtResource("1_b8vcb")
+script = ExtResource("1_k016h")
 pos_selector = NodePath("PartOfSpeech")
 
 [node name="WordEdit" type="LineEdit" parent="."]

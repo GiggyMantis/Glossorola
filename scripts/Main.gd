@@ -64,6 +64,8 @@ func _new_project():
 	$TabManager/PROJECT_MENU/Autonym.text = ""
 	$TabManager/PROJECT_MENU/Langtype.selected = 0
 	$TabManager/GRAMMAR_MODULE/BriefGrammarOverview.text = ""
+	$TabManager/PHONOLOGY_MODULE/Vowels.reload()
+	$TabManager/PHONOLOGY_MODULE/Consonants.reload()
 	
 	_reload_parts_of_speech()
 	_reload_sound_changes()
@@ -142,12 +144,29 @@ func collate_data() -> Dictionary:
 	info["SCA/Rewrite"] = $TabManager/SOUND_CHANGE_TOOL/RewriteRules.text
 	info["SCA/Rules"] = $TabManager/SOUND_CHANGE_TOOL/SoundChanges.text
 	info["SCA/RewriteOnOutput"] = $TabManager/SOUND_CHANGE_TOOL/RewriteOnOutput.button_pressed
+	info["Phonology/Lock"] = $TabManager/PHONOLOGY_MODULE/Lock.button_pressed
+	info["Phonology/Vowels"] = $TabManager/PHONOLOGY_MODULE/Vowels.get_data()
+	info["Phonology/Consonants"] = $TabManager/PHONOLOGY_MODULE/Consonants.get_data()
 	return info
 	
 func load_data(info: Dictionary):
 	var minor_version = info["Version"].substr(0,4)
 	if info["Version"].ends_with("-beta"):
 		match minor_version:
+			"1.2.":
+				$TabManager/PROJECT_MENU/NameOfLanguage.text = info["Project/LanguageName"]
+				$TabManager/PROJECT_MENU/Autonym.text = info["Project/Autonym"]
+				$TabManager/PROJECT_MENU/Langtype.selected = info["Project/LanguageType"]
+				%DictionaryContainer.reload(info["Project/Dictionary"])
+				$TabManager/GRAMMAR_MODULE/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
+				$TabManager/GRAMMAR_MODULE/BriefGrammarOverview.text = info["Grammar/BriefGrammarbook"]
+				$TabManager/SOUND_CHANGE_TOOL/Categories.text = info["SCA/Categories"]
+				$TabManager/SOUND_CHANGE_TOOL/RewriteRules.text = info["SCA/Rewrite"]
+				$TabManager/SOUND_CHANGE_TOOL/SoundChanges.text = info["SCA/Rules"]
+				$TabManager/SOUND_CHANGE_TOOL/RewriteOnOutput.button_pressed = info["SCA/RewriteOnOutput"]
+				$TabManager/PHONOLOGY_MODULE/Lock.button_pressed = info["Phonology/Lock"]
+				$TabManager/PHONOLOGY_MODULE/Vowels.from_data(info["Phonology/Vowels"])
+				$TabManager/PHONOLOGY_MODULE/Consonants.from_data(info["Phonology/Consonants"])
 			"1.1.":
 				$TabManager/PROJECT_MENU/NameOfLanguage.text = info["Project/LanguageName"]
 				$TabManager/PROJECT_MENU/Autonym.text = info["Project/Autonym"]

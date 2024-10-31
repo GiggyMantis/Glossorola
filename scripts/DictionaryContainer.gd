@@ -1,7 +1,7 @@
 extends VBoxContainer
 class_name DictionaryContainer
 
-var word_node = preload("res://word.tscn")
+@onready var word_node = preload("res://scenes/word.tscn")
 
 @export var add_button: Button
 @export var delete_button: Button
@@ -15,7 +15,7 @@ func delete_children():
 	for child in get_children():
 		child.queue_free()
 
-func reload(list: Array[Dictionary]):
+func reload(list):
 	delete_children()
 	for item in list:
 		var item_node = word_node.instantiate()
