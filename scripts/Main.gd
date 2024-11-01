@@ -24,7 +24,7 @@ func _ready():
 	$TabManager.current_tab = 0
 	
 	# Testing
-	print(Chronology.Mutation.New(0, Chronology.MutationType.NULL))
+	print(Mutation.CommentMutation._new(0, "Beginning of testing era"))
 	
 	
 func get_grammar_tables():
