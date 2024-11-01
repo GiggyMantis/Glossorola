@@ -47,7 +47,7 @@ func _ready():
 func create_button(char, keycap):
 	var b = ValueStoringButton.new()
 	b.text = keycap
-	b.char = char
+	b.value = char
 	b._pressed_get_text_and_value.connect(_button_pressed)
 	$Keyboard.add_child(b)
 

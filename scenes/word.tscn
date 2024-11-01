@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bojatcy60ut07"]
+[gd_scene load_steps=3 format=3 uid="uid://bojatcy60ut07"]
+
+[ext_resource type="Script" path="res://scripts/ValueStoringButton.gd" id="1_8gqpa"]
 
 [sub_resource type="GDScript" id="GDScript_jow5d"]
 script/source = "extends HBoxContainer
@@ -45,3 +47,4 @@ expand_to_text_length = true
 [node name="RemoveEntry" type="Button" parent="."]
 layout_mode = 2
 text = "x"
+script = ExtResource("1_8gqpa")
