@@ -472,6 +472,6 @@ offset_top = 200.0
 offset_right = 1152.0
 offset_bottom = 250.0
 tooltip_text = "TIMELINE"
-max_value = 2.14748e+09
+max_value = 9.22337e+18
 tick_count = 22
 ticks_on_borders = true

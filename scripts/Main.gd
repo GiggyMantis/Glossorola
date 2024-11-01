@@ -23,6 +23,9 @@ func _ready():
 	_new_project()
 	$TabManager.current_tab = 0
 	
+	# Testing
+	print(Chronology.Mutation.New(0, Chronology.MutationType.NULL))
+	
 	
 func get_grammar_tables():
 	return grammar_tables.get_data()	
