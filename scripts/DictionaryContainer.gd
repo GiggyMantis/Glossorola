@@ -28,25 +28,21 @@ func delete_children():
 	for child in get_children():
 		child.queue_free()
 
-func reload(list):
+func reload(list: Array[Word]):
 	delete_children()
 	for item in list:
 		var item_node = word.instantiate()
-		item_node.get_child(0).text = item["Lemma"]
-		item_node.get_child(1).text = item["Pronunciation"]
-		item_node.get_child(2).selected = item["PartOfSpeech"]
-		item_node.get_child(3).text = item["Gloss"]
+		item_node.get_child(0).text = item.lemma
+		item_node.get_child(1).text = item.pronunciation
+		item_node.get_child(2).selected = item.part_of_speech
+		item_node.get_child(3).text = item.gloss
 		add_child(item_node)
 		
 func save_data() -> Array[Dictionary]:
 	var ret: Array[Dictionary]
 	for child in get_children():
-		var dict: Dictionary
-		dict["Lemma"] = child.get_child(0).text
-		dict["Pronunciation"] = child.get_child(1).text
-		dict["PartOfSpeech"] = child.get_child(2).selected
-		dict["Gloss"] = child.get_child(3).text
-		ret.append(dict)
+		var word := Word.New(child.get_child(0).text, child.get_child(1).text, child.get_child(2).selected, child.get_child(3).text)
+		ret.append(word._to_dictionary())
 	return ret
 
 func new_word():
@@ -54,3 +50,33 @@ func new_word():
 
 func remove_word():
 	remove_word_at(-1)
+
+class Word extends Resource:
+	var lemma: String
+	var pronunciation: String
+	var part_of_speech: int
+	var gloss: String
+	
+	static func New(lemma: String, pronunciation: String, part_of_speech: int, gloss: String) -> Word:
+		var ret = Word.new()
+		ret.lemma = lemma
+		ret.pronunciation = pronunciation
+		ret.part_of_speech = part_of_speech
+		ret.gloss = gloss
+		return ret
+	
+	static func from_dictionary(dict: Dictionary) -> Word:
+		var ret = Word.new()
+		ret.lemma = dict["Lemma"]
+		ret.pronunciation = dict["Pronunciation"]
+		ret.part_of_speech = dict["PartOfSpeech"]
+		ret.gloss = dict["Gloss"]
+		return ret
+	
+	func _to_dictionary() -> Dictionary:
+		var ret: Dictionary
+		ret["Lemma"] = lemma
+		ret["Pronunciation"] = pronunciation
+		ret["PartOfSpeech"] = part_of_speech
+		ret["Gloss"] = gloss
+		return ret

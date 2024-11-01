@@ -157,7 +157,7 @@ func load_data(info: Dictionary):
 				$TabManager/PROJECT_MENU/NameOfLanguage.text = info["Project/LanguageName"]
 				$TabManager/PROJECT_MENU/Autonym.text = info["Project/Autonym"]
 				$TabManager/PROJECT_MENU/Langtype.selected = info["Project/LanguageType"]
-				%DictionaryContainer.reload(info["Project/Dictionary"])
+				%DictionaryContainer.reload(DictionaryContainer.Word.from_dictionary(info["Project/Dictionary"]))
 				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
 				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/BriefGrammarbook.text = info["Grammar/BriefGrammarbook"]
 				grammar_tables.from_data(info["Grammar/Tables"])
@@ -172,7 +172,7 @@ func load_data(info: Dictionary):
 				$TabManager/PROJECT_MENU/NameOfLanguage.text = info["Project/LanguageName"]
 				$TabManager/PROJECT_MENU/Autonym.text = info["Project/Autonym"]
 				$TabManager/PROJECT_MENU/Langtype.selected = info["Project/LanguageType"]
-				%DictionaryContainer.reload(info["Project/Dictionary"])
+				%DictionaryContainer.reload(DictionaryContainer.Word.from_dictionary(info["Project/Dictionary"]))
 				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
 				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/BriefGrammarbook.text = info["Grammar/BriefGrammarbook"]
 				$TabManager/SOUND_CHANGE_TOOL/Categories.text = info["SCA/Categories"]
@@ -186,7 +186,7 @@ func load_data(info: Dictionary):
 				$TabManager/PROJECT_MENU/NameOfLanguage.text = info["Project/LanguageName"]
 				$TabManager/PROJECT_MENU/Autonym.text = info["Project/Autonym"]
 				$TabManager/PROJECT_MENU/Langtype.selected = info["Project/LanguageType"]
-				%DictionaryContainer.reload(info["Project/Dictionary"])
+				%DictionaryContainer.reload(DictionaryContainer.Word.from_dictionary(info["Project/Dictionary"]))
 				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
 				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/BriefGrammarbook.text = info["Grammar/BriefGrammarbook"]
 				$TabManager/SOUND_CHANGE_TOOL/Categories.text = info["SCA/Categories"]
@@ -197,7 +197,7 @@ func load_data(info: Dictionary):
 				$TabManager/PROJECT_MENU/NameOfLanguage.text = info["LanguageName"]
 				$TabManager/PROJECT_MENU/Autonym.text = info["Autonym"]
 				$TabManager/PROJECT_MENU/Langtype.selected = info["LanguageType"]
-				%DictionaryContainer.reload(info["Dictionary"])
+				%DictionaryContainer.reload(DictionaryContainer.Word.from_dictionary(info["Dictionary"]))
 				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/PartOfSpeechList.text = "\n".join(info["PartsOfSpeech"])
 				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/BriefGrammarbook.text = ""
 	else:

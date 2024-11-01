@@ -35,7 +35,7 @@ func _to_dictionary() -> Dictionary:
 	return ret
 
 class CommentMutation extends Mutation:
-	static func _new(year: int, value):
+	static func _new(year: int, value: String):
 		var ret = CommentMutation.new()
 		ret.year = clamp(year, 0, Chronology.MAX_YEAR)
 		ret.value = value
@@ -43,6 +43,19 @@ class CommentMutation extends Mutation:
 	
 	func _mutation_type() -> MutationType:
 		return MutationType.COMMENT
+	
+	func _to_string() -> String:
+		return "yr." + str(year) + " \"" + value + "\""
+
+class WordCreationMutation extends Mutation:
+	static func _new(year: int, value: Dictionary):
+		var ret = WordCreationMutation.new()
+		ret.year = clamp(year, 0, Chronology.MAX_YEAR)
+		ret.value = value
+		return ret
+	
+	func _mutation_type() -> MutationType:
+		return MutationType.WORD_CREATION
 	
 	func _to_string() -> String:
 		return "yr." + str(year) + " \"" + value + "\""
