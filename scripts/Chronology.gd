@@ -21,16 +21,14 @@ func get_final_year() -> int:
 	self.sort()
 	return list[-1].year
 	
-# Evolves up to and including year
-func evolve(dict: Dictionary, year: int) -> Dictionary:
-	var ret = dict
+# Evolves up to and including year; use -1 for all
+func evolve(year: int = -1):
 	assert(year <= MAX_YEAR)
 	sort()
 	for mutation in list:
-		if mutation.year > year:
+		if mutation.year > year or year == -1:
 			break
-		ret = mutation._mutate()
-	return ret
+		mutation._mutate()
 
 func _to_string() -> String:
 	self.sort()

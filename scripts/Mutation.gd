@@ -18,8 +18,8 @@ static func from_dictionary(dict: Dictionary):
 			return _new(dict["Year"], dict["x"])
 	return _new(dict["Year"], dict["x"])	
 
-func _mutate(input: Dictionary) -> Dictionary:
-	return input
+func _mutate():
+	pass
 
 func _mutation_type() -> MutationType:
 	return MutationType.NULL
@@ -55,6 +55,9 @@ class WordCreationMutation extends Mutation:
 		ret.year = clamp(year, 0, Chronology.MAX_YEAR)
 		ret.value = value
 		return ret
+	
+	func _mutate():
+		get_local_scene().get_node("%DictionaryContainer").implement_word(value)
 	
 	func _mutation_type() -> MutationType:
 		return MutationType.WORD_CREATION

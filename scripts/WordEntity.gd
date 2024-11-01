@@ -2,6 +2,8 @@ extends HBoxContainer
 
 @export var pos_selector: OptionButton
 
+var uuid: int
+
 func _ready():
 	pos_selector.pressed.connect(self._reload)
 	

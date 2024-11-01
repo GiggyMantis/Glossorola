@@ -24,10 +24,10 @@ func _ready():
 	$TabManager.current_tab = 0
 	
 	# Testing
-	var c := Chronology.new()
-	c.list.append(Mutation.WordCreationMutation._new(1, DictionaryContainer.Word.New("lemma", "pron", -1, "gloss")))
-	c.list.append(Mutation.WordCreationMutation._new(0, DictionaryContainer.Word.New("lemma", "pron", -1, "gloss")))
-	print(c)
+	#var c := Chronology.new()
+	#c.list.append(Mutation.WordCreationMutation._new(1, DictionaryContainer.Word.New("lemma", "pron", -1, "gloss")))
+	#c.list.append(Mutation.WordCreationMutation._new(0, DictionaryContainer.Word.New("lemma", "pron", -1, "gloss")))
+	#print(c)
 	
 	
 func get_grammar_tables():
@@ -156,11 +156,11 @@ func load_data(info: Dictionary):
 	var minor_version = info["Version"].substr(0,4)
 	if info["Version"].ends_with("-beta"):
 		match minor_version:
-			"1.3.":
+			"1.4.":
 				$TabManager/PROJECT_MENU/NameOfLanguage.text = info["Project/LanguageName"]
 				$TabManager/PROJECT_MENU/Autonym.text = info["Project/Autonym"]
 				$TabManager/PROJECT_MENU/Langtype.selected = info["Project/LanguageType"]
-				%DictionaryContainer.reload(DictionaryContainer.Word.from_dictionary(info["Project/Dictionary"]))
+				%DictionaryContainer.load_data(info["Project/Dictionary"])
 				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
 				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/BriefGrammarbook.text = info["Grammar/BriefGrammarbook"]
 				grammar_tables.from_data(info["Grammar/Tables"])
@@ -171,38 +171,6 @@ func load_data(info: Dictionary):
 				$TabManager/PHONOLOGY_MODULE/Lock.button_pressed = info["Phonology/Lock"]
 				$TabManager/PHONOLOGY_MODULE/Vowels.from_data(info["Phonology/Vowels"])
 				$TabManager/PHONOLOGY_MODULE/Consonants.from_data(info["Phonology/Consonants"])
-			"1.2.":
-				$TabManager/PROJECT_MENU/NameOfLanguage.text = info["Project/LanguageName"]
-				$TabManager/PROJECT_MENU/Autonym.text = info["Project/Autonym"]
-				$TabManager/PROJECT_MENU/Langtype.selected = info["Project/LanguageType"]
-				%DictionaryContainer.reload(DictionaryContainer.Word.from_dictionary(info["Project/Dictionary"]))
-				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
-				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/BriefGrammarbook.text = info["Grammar/BriefGrammarbook"]
-				$TabManager/SOUND_CHANGE_TOOL/Categories.text = info["SCA/Categories"]
-				$TabManager/SOUND_CHANGE_TOOL/RewriteRules.text = info["SCA/Rewrite"]
-				$TabManager/SOUND_CHANGE_TOOL/SoundChanges.text = info["SCA/Rules"]
-				$TabManager/SOUND_CHANGE_TOOL/RewriteOnOutput.button_pressed = info["SCA/RewriteOnOutput"]
-				$TabManager/PHONOLOGY_MODULE/Lock.button_pressed = info["Phonology/Lock"]
-				$TabManager/PHONOLOGY_MODULE/Vowels.from_data(info["Phonology/Vowels"])
-				$TabManager/PHONOLOGY_MODULE/Consonants.from_data(info["Phonology/Consonants"])
-			"1.1.":
-				$TabManager/PROJECT_MENU/NameOfLanguage.text = info["Project/LanguageName"]
-				$TabManager/PROJECT_MENU/Autonym.text = info["Project/Autonym"]
-				$TabManager/PROJECT_MENU/Langtype.selected = info["Project/LanguageType"]
-				%DictionaryContainer.reload(DictionaryContainer.Word.from_dictionary(info["Project/Dictionary"]))
-				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
-				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/BriefGrammarbook.text = info["Grammar/BriefGrammarbook"]
-				$TabManager/SOUND_CHANGE_TOOL/Categories.text = info["SCA/Categories"]
-				$TabManager/SOUND_CHANGE_TOOL/RewriteRules.text = info["SCA/Rewrite"]
-				$TabManager/SOUND_CHANGE_TOOL/SoundChanges.text = info["SCA/Rules"]
-				$TabManager/SOUND_CHANGE_TOOL/RewriteOnOutput.button_pressed = info["SCA/RewriteOnOutput"]
-			"1.0.":
-				$TabManager/PROJECT_MENU/NameOfLanguage.text = info["LanguageName"]
-				$TabManager/PROJECT_MENU/Autonym.text = info["Autonym"]
-				$TabManager/PROJECT_MENU/Langtype.selected = info["LanguageType"]
-				%DictionaryContainer.reload(DictionaryContainer.Word.from_dictionary(info["Dictionary"]))
-				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/PartOfSpeechList.text = "\n".join(info["PartsOfSpeech"])
-				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/BriefGrammarbook.text = ""
 	else:
 		match minor_version:
 			_:
