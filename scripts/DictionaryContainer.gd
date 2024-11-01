@@ -72,6 +72,13 @@ class Word extends Resource:
 		ret.part_of_speech = dict["PartOfSpeech"]
 		ret.gloss = dict["Gloss"]
 		return ret
+		
+	func _to_string() -> String:
+		var display_pronunciation = "/" + pronunciation + "/"
+		if pronunciation.begins_with("/") or pronunciation.begins_with("["):
+			display_pronunciation = pronunciation
+		
+		return "⟨" + lemma + "⟩ " + display_pronunciation + " pos#" + str(part_of_speech) + " \"" + gloss + "\""
 	
 	func _to_dictionary() -> Dictionary:
 		var ret: Dictionary

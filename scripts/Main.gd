@@ -24,7 +24,10 @@ func _ready():
 	$TabManager.current_tab = 0
 	
 	# Testing
-	print(Mutation.CommentMutation._new(0, "Beginning of testing era"))
+	var c := Chronology.new()
+	c.list.append(Mutation.WordCreationMutation._new(1, DictionaryContainer.Word.New("lemma", "pron", -1, "gloss")))
+	c.list.append(Mutation.WordCreationMutation._new(0, DictionaryContainer.Word.New("lemma", "pron", -1, "gloss")))
+	print(c)
 	
 	
 func get_grammar_tables():
