@@ -6,17 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://b8nrxeivn87uy" path="res://textures/image.svg" id="4_ofq1y"]
 [ext_resource type="Script" path="res://scripts/DictionaryContainer.gd" id="5_bcwqd"]
 [ext_resource type="Script" path="res://scripts/PhonologyContainer.gd" id="6_0ik07"]
+[ext_resource type="Script" path="res://scripts/GrammarContainer.gd" id="6_puf5r"]
 [ext_resource type="PackedScene" uid="uid://ddlijlo3awa1" path="res://scenes/table/table.tscn" id="7_7j8ct"]
+[ext_resource type="PackedScene" uid="uid://05awvkbxe17w" path="res://scenes/table/background.tscn" id="8_1jxy8"]
 [ext_resource type="Script" path="res://scripts/SoundChangeTool.gd" id="8_3i30n"]
-[ext_resource type="Script" path="res://scripts/DataFrame.gd" id="8_kierl"]
 [ext_resource type="Script" path="res://scripts/IPAKeyboardTool.gd" id="9_f2pyp"]
 
-[sub_resource type="Resource" id="Resource_628lb"]
-script = ExtResource("8_kierl")
-data = [["Hello"]]
-columns = PackedStringArray("Test")
-
-[node name="Control" type="Control" node_paths=PackedStringArray("open_file_button", "save_file_button", "new_project_button", "translation_settings", "part_of_speech_list")]
+[node name="Control" type="Control" node_paths=PackedStringArray("open_file_button", "save_file_button", "new_project_button", "translation_settings", "part_of_speech_list", "grammar_tables")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,7 +24,8 @@ open_file_button = NodePath("TabManager/HOME_MENU/OPEN_FILE")
 save_file_button = NodePath("TabManager/HOME_MENU/SAVE_FILE")
 new_project_button = NodePath("TabManager/HOME_MENU/NEW_PROJECT")
 translation_settings = NodePath("TabManager/HOME_MENU/TranslationSettings")
-part_of_speech_list = NodePath("TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl/PartOfSpeechList")
+part_of_speech_list = NodePath("TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/PartOfSpeechList")
+grammar_tables = NodePath("TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_TABLES/ScrollContainer/GrammarContainer")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -224,33 +221,34 @@ delete_button = NodePath("../../DictionaryRemove")
 layout_mode = 2
 metadata/_tab_index = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="TabManager/GRAMMAR_MODULE"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.01
-anchor_top = -4.054
-anchor_right = 0.01
-anchor_bottom = -4.054
-offset_left = -11.52
-offset_top = 61.486
-offset_right = 1140.48
-offset_bottom = 651.486
-grow_horizontal = 2
-grow_vertical = 2
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 2
+[node name="TabContainer" type="TabContainer" parent="TabManager/GRAMMAR_MODULE"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 40.0
+current_tab = 1
 
-[node name="ScrollControl" type="Control" parent="TabManager/GRAMMAR_MODULE/ScrollContainer"]
-custom_minimum_size = Vector2(0, 2000)
+[node name="GRAMMAR_INFORMATION" type="Control" parent="TabManager/GRAMMAR_MODULE/TabContainer"]
+visible = false
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+metadata/_tab_index = 0
 
-[node name="PartOfSpeechList" type="TextEdit" parent="TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl"]
+[node name="BriefGrammarbook" type="TextEdit" parent="TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION"]
 layout_mode = 2
-offset_left = 80.0
-offset_right = 430.0
-offset_bottom = 500.0
+offset_left = 500.0
+offset_top = 25.0
+offset_right = 1130.0
+offset_bottom = 555.0
+tooltip_text = "BRIEF_GRAMMAR_OVERVIEW_TOOLTIP"
+placeholder_text = "BRIEF_GRAMMAR_OVERVIEW_TOOLTIP"
+
+[node name="PartOfSpeechList" type="TextEdit" parent="TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION"]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 35.0
+offset_top = 25.0
+offset_right = -687.0
+offset_bottom = 546.0
 tooltip_text = "ADD_WORD_CLASS"
 text = "noun
 adjective
@@ -263,13 +261,36 @@ pronoun
 phrase"
 placeholder_text = "ADD_WORD_CLASS"
 
-[node name="BriefGrammarOverview" type="TextEdit" parent="TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl"]
+[node name="GRAMMAR_TABLES" type="Control" parent="TabManager/GRAMMAR_MODULE/TabContainer"]
 layout_mode = 2
-offset_left = 500.0
-offset_right = 1100.0
-offset_bottom = 500.0
-tooltip_text = "BRIEF_GRAMMAR_OVERVIEW_TOOLTIP"
-placeholder_text = "BRIEF_GRAMMAR_OVERVIEW_TOOLTIP"
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_tab_index = 1
+
+[node name="Lock" type="CheckButton" parent="TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_TABLES"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 534.0
+offset_right = 96.0
+offset_bottom = 565.0
+text = "LOCK"
+
+[node name="NewTable" type="Button" parent="TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_TABLES"]
+layout_mode = 0
+offset_left = 108.0
+offset_top = 534.0
+offset_right = 126.0
+offset_bottom = 565.0
+text = "+"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_TABLES"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 520.0
+
+[node name="GrammarContainer" type="GridContainer" parent="TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_TABLES/ScrollContainer"]
+layout_mode = 2
+script = ExtResource("6_puf5r")
 
 [node name="PHONOLOGY_MODULE" type="Control" parent="TabManager"]
 visible = false
@@ -282,17 +303,15 @@ anchors_preset = 0
 offset_bottom = 553.0
 script = ExtResource("6_0ik07")
 
-[node name="Background" type="Panel" parent="TabManager/PHONOLOGY_MODULE/Vowels"]
-layout_mode = 1
-offset_left = 37.0
-offset_top = 71.0
-offset_right = 562.0
-offset_bottom = 571.0
+[node name="Background" parent="TabManager/PHONOLOGY_MODULE/Vowels" instance=ExtResource("8_1jxy8")]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 50.0
+offset_right = 485.0
+offset_bottom = 500.0
 
 [node name="Table" parent="TabManager/PHONOLOGY_MODULE/Vowels/Background" instance=ExtResource("7_7j8ct")]
 layout_mode = 1
-data = SubResource("Resource_628lb")
-editable = true
 
 [node name="Consonants" type="Control" parent="TabManager/PHONOLOGY_MODULE"]
 layout_mode = 1
@@ -303,17 +322,15 @@ offset_bottom = 553.0
 grow_horizontal = 2
 script = ExtResource("6_0ik07")
 
-[node name="Background" type="Panel" parent="TabManager/PHONOLOGY_MODULE/Consonants"]
-layout_mode = 1
-offset_left = 12.0
-offset_top = 71.0
-offset_right = 537.0
-offset_bottom = 571.0
+[node name="Background" parent="TabManager/PHONOLOGY_MODULE/Consonants" instance=ExtResource("8_1jxy8")]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 50.0
+offset_right = 485.0
+offset_bottom = 500.0
 
 [node name="Table" parent="TabManager/PHONOLOGY_MODULE/Consonants/Background" instance=ExtResource("7_7j8ct")]
 layout_mode = 1
-data = SubResource("Resource_628lb")
-editable = true
 
 [node name="Lock" type="CheckButton" parent="TabManager/PHONOLOGY_MODULE"]
 layout_mode = 0

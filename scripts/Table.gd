@@ -1,10 +1,10 @@
 extends Control
 
-@onready var table_row = preload("res://scenes/table/table_row.tscn")
-@onready var table_cell = preload("res://scenes/table/table_cell.tscn")
-@onready var table_header_cell = preload("res://scenes/table/table_header_cell.tscn")
-@onready var table_delete_button = preload("res://scenes/table/table_delete_button.tscn")
-@onready var table_add_button = preload("res://scenes/table/table_add_button.tscn")
+var table_row = preload("res://scenes/table/table_row.tscn")
+var table_cell = preload("res://scenes/table/table_cell.tscn")
+var table_header_cell = preload("res://scenes/table/table_header_cell.tscn")
+var table_delete_button = preload("res://scenes/table/table_delete_button.tscn")
+var table_add_button = preload("res://scenes/table/table_add_button.tscn")
 
 @export var data: DataFrame
 @export var editable := false
@@ -28,7 +28,7 @@ func _delete_button(represented):
 			data.remove_row(represented)
 	render()
 
-func render():
+func render():	
 	for child in $Rows.get_children():
 		child.queue_free()
 	

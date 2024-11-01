@@ -1,7 +1,9 @@
 extends Node
 
+@onready var lock_button = get_node("../Lock")
+
 func _ready():
-	get_node("../Lock").pressed.connect(self.lock)
+	lock_button.pressed.connect(self.lock)
 	reload()	
 
 func get_data() -> Dictionary:
@@ -12,11 +14,11 @@ func from_data(data: Dictionary) -> void:
 	$Background/Table.render()
 
 func lock():
-	$Background/Table.editable = not get_node("../Lock").button_pressed
+	$Background/Table.editable = not lock_button.button_pressed
 	$Background/Table.render()
 
 func reload():
-	get_node("../Lock").button_pressed = false
+	lock_button.button_pressed = false
 	
 	var columns = [name]
 	var data = [
@@ -25,3 +27,4 @@ func reload():
 	
 	$Background/Table.data = DataFrame.New(data, columns)
 	$Background/Table.render()
+	$Background/Table.editable = not lock_button.button_pressed

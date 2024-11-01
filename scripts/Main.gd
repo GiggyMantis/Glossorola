@@ -5,6 +5,7 @@ extends Control
 @export var new_project_button: Button
 @export var translation_settings: OptionButton
 @export var part_of_speech_list: TextEdit
+@export var grammar_tables: GridContainer
 
 const DEFAULT_PARTS_OF_SPEECH = "noun
 adjective
@@ -32,6 +33,9 @@ func _ready():
 	$TabManager.current_tab = 0
 	
 	
+func get_grammar_tables():
+	return grammar_tables.get_data()	
+
 func get_parts_of_speech():
 	return part_of_speech_list.text.split("\n")
 	
@@ -64,9 +68,10 @@ func _new_project():
 	$TabManager/PROJECT_MENU/NameOfLanguage.text = ""
 	$TabManager/PROJECT_MENU/Autonym.text = ""
 	$TabManager/PROJECT_MENU/Langtype.selected = 0
-	$TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl/BriefGrammarOverview.text = ""
+	$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/BriefGrammarbook.text = ""
 	$TabManager/PHONOLOGY_MODULE/Vowels.reload()
 	$TabManager/PHONOLOGY_MODULE/Consonants.reload()
+	grammar_tables.reload()
 	
 	_reload_parts_of_speech()
 	_reload_sound_changes()
@@ -139,7 +144,8 @@ func collate_data() -> Dictionary:
 	info["Project/LanguageType"] = $TabManager/PROJECT_MENU/Langtype.selected
 	info["Project/Dictionary"] = %DictionaryContainer.save_data()
 	info["Grammar/PartsOfSpeech"] = get_parts_of_speech()
-	info["Grammar/BriefGrammarbook"] = $TabManager/GRAMMAR_MODULE/BriefGrammarOverview.text
+	info["Grammar/BriefGrammarbook"] = $TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/BriefGrammarbook.text
+	info["Grammar/Tables"] = get_grammar_tables()
 	info["SCA/Categories"] = $TabManager/SOUND_CHANGE_TOOL/Categories.text
 	info["SCA/Rewrite"] = $TabManager/SOUND_CHANGE_TOOL/RewriteRules.text
 	info["SCA/Rules"] = $TabManager/SOUND_CHANGE_TOOL/SoundChanges.text
@@ -153,13 +159,28 @@ func load_data(info: Dictionary):
 	var minor_version = info["Version"].substr(0,4)
 	if info["Version"].ends_with("-beta"):
 		match minor_version:
+			"1.3.":
+				$TabManager/PROJECT_MENU/NameOfLanguage.text = info["Project/LanguageName"]
+				$TabManager/PROJECT_MENU/Autonym.text = info["Project/Autonym"]
+				$TabManager/PROJECT_MENU/Langtype.selected = info["Project/LanguageType"]
+				%DictionaryContainer.reload(info["Project/Dictionary"])
+				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
+				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/BriefGrammarbook.text = info["Grammar/BriefGrammarbook"]
+				grammar_tables.from_data(info["Grammar/Tables"])
+				$TabManager/SOUND_CHANGE_TOOL/Categories.text = info["SCA/Categories"]
+				$TabManager/SOUND_CHANGE_TOOL/RewriteRules.text = info["SCA/Rewrite"]
+				$TabManager/SOUND_CHANGE_TOOL/SoundChanges.text = info["SCA/Rules"]
+				$TabManager/SOUND_CHANGE_TOOL/RewriteOnOutput.button_pressed = info["SCA/RewriteOnOutput"]
+				$TabManager/PHONOLOGY_MODULE/Lock.button_pressed = info["Phonology/Lock"]
+				$TabManager/PHONOLOGY_MODULE/Vowels.from_data(info["Phonology/Vowels"])
+				$TabManager/PHONOLOGY_MODULE/Consonants.from_data(info["Phonology/Consonants"])
 			"1.2.":
 				$TabManager/PROJECT_MENU/NameOfLanguage.text = info["Project/LanguageName"]
 				$TabManager/PROJECT_MENU/Autonym.text = info["Project/Autonym"]
 				$TabManager/PROJECT_MENU/Langtype.selected = info["Project/LanguageType"]
 				%DictionaryContainer.reload(info["Project/Dictionary"])
-				$TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
-				$TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl/BriefGrammarOverview.text = info["Grammar/BriefGrammarbook"]
+				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
+				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/BriefGrammarbook.text = info["Grammar/BriefGrammarbook"]
 				$TabManager/SOUND_CHANGE_TOOL/Categories.text = info["SCA/Categories"]
 				$TabManager/SOUND_CHANGE_TOOL/RewriteRules.text = info["SCA/Rewrite"]
 				$TabManager/SOUND_CHANGE_TOOL/SoundChanges.text = info["SCA/Rules"]
@@ -172,8 +193,8 @@ func load_data(info: Dictionary):
 				$TabManager/PROJECT_MENU/Autonym.text = info["Project/Autonym"]
 				$TabManager/PROJECT_MENU/Langtype.selected = info["Project/LanguageType"]
 				%DictionaryContainer.reload(info["Project/Dictionary"])
-				$TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
-				$TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl/BriefGrammarOverview.text = info["Grammar/BriefGrammarbook"]
+				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
+				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/BriefGrammarbook.text = info["Grammar/BriefGrammarbook"]
 				$TabManager/SOUND_CHANGE_TOOL/Categories.text = info["SCA/Categories"]
 				$TabManager/SOUND_CHANGE_TOOL/RewriteRules.text = info["SCA/Rewrite"]
 				$TabManager/SOUND_CHANGE_TOOL/SoundChanges.text = info["SCA/Rules"]
@@ -183,8 +204,8 @@ func load_data(info: Dictionary):
 				$TabManager/PROJECT_MENU/Autonym.text = info["Autonym"]
 				$TabManager/PROJECT_MENU/Langtype.selected = info["LanguageType"]
 				%DictionaryContainer.reload(info["Dictionary"])
-				$TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl/PartOfSpeechList.text = "\n".join(info["PartsOfSpeech"])
-				$TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl/BriefGrammarOverview.text = ""
+				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/PartOfSpeechList.text = "\n".join(info["PartsOfSpeech"])
+				$TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/BriefGrammarbook.text = ""
 	else:
 		match minor_version:
 			_:
