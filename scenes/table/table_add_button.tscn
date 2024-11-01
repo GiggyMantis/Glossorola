@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bnii86r6xghen"]
 
-[ext_resource type="Script" path="res://scripts/TableButton.gd" id="1_yr0gi"]
+[ext_resource type="Script" path="res://scripts/ValueStoringButton.gd" id="1_cbag6"]
 
 [node name="AddButton" type="Button"]
 anchors_preset = -1
@@ -12,4 +12,4 @@ grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "+"
-script = ExtResource("1_yr0gi")
+script = ExtResource("1_cbag6")

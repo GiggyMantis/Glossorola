@@ -225,10 +225,9 @@ metadata/_tab_index = 3
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 40.0
-current_tab = 1
+current_tab = 0
 
 [node name="GRAMMAR_INFORMATION" type="Control" parent="TabManager/GRAMMAR_MODULE/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -262,6 +261,7 @@ phrase"
 placeholder_text = "ADD_WORD_CLASS"
 
 [node name="GRAMMAR_TABLES" type="Control" parent="TabManager/GRAMMAR_MODULE/TabContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

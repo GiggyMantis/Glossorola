@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://l15xxx6g75wx"]
 
-[ext_resource type="Script" path="res://scripts/TableButton.gd" id="1_7dto0"]
+[ext_resource type="Script" path="res://scripts/ValueStoringButton.gd" id="1_hs0u3"]
 
 [node name="DeleteButton" type="Button"]
 offset_right = 31.0
@@ -8,4 +8,4 @@ offset_bottom = 31.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "x"
-script = ExtResource("1_7dto0")
+script = ExtResource("1_hs0u3")

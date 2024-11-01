@@ -1,5 +1,6 @@
 key,en,es,pt_BR
 GLOSSOROLA,Glossorola,Glossorola,Glossorola
+DEFAULT_POS_LIST,noun\nadjective\nadverb\nverb\nadposition\ninterjection\nconjunction\npronoun\nphrase\nname,sustantivo\nadjetivo\nadverbio\nverbo\nadposición\ninterjección\nconjunción\npronombre\nfrase\nnombre,substantivo\nadjetivo\nadvérbio\nverbo\naposição\ninterjeição\nconjunção\npronome\nfrase\nnome
 HOME_MENU,Home,Inicio,Início
 PROJECT_MENU,Project,Proyecto,Projeto
 DICTIONARY_MODULE,Dictionary,Diccionario,Dicionário

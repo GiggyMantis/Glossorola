@@ -45,13 +45,13 @@ func _ready():
 		
 
 func create_button(char, keycap):
-	var b = IPAButton.new()
+	var b = ValueStoringButton.new()
 	b.text = keycap
 	b.char = char
-	b._ipa_key_pressed.connect(_button_pressed)
+	b._pressed_get_text_and_value.connect(_button_pressed)
 	$Keyboard.add_child(b)
 
-func _button_pressed(char, keycap):
+func _button_pressed(keycap, char):
 	$TextEdit.insert_text_at_caret(char)
 
 func _input(event):

@@ -28,7 +28,7 @@ func _delete_button(represented):
 			data.remove_row(represented)
 	render()
 
-func render():	
+func render():
 	for child in $Rows.get_children():
 		child.queue_free()
 	
@@ -45,13 +45,13 @@ func render():
 		cell.row = -1
 		if editable:
 			var delete_button = table_delete_button.instantiate()
-			delete_button.represents = str(column)
-			delete_button._button_pressed.connect(self._delete_button)
+			delete_button.value = str(column)
+			delete_button._pressed_get_value.connect(self._delete_button)
 			cell.add_child(delete_button)
 			if column == data.get_final_column():
 				var add_button = table_add_button.instantiate()
-				add_button.represents = str(column)
-				add_button._button_pressed.connect(self._add_button)
+				add_button.value = str(column)
+				add_button._pressed_get_value.connect(self._add_button)
 				add_button.anchor_left = 1.0
 				add_button.offset_left = -31
 				add_button.offset_right = 0
@@ -74,13 +74,13 @@ func render():
 			cell.row = r
 			if editable and i == 0:
 				var delete_button = table_delete_button.instantiate()
-				delete_button.represents = r
-				delete_button._button_pressed.connect(self._delete_button)
+				delete_button.value = r
+				delete_button._pressed_get_value.connect(self._delete_button)
 				cell.add_child(delete_button)
 				if r == data.size().y - 1:
 					var add_button = table_add_button.instantiate()
-					add_button.represents = r
-					add_button._button_pressed.connect(self._add_button)
+					add_button.value = r
+					add_button._pressed_get_value.connect(self._add_button)
 					cell.add_child(add_button)
 			row.add_child(cell)
 		

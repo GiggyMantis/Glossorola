@@ -7,15 +7,6 @@ extends Control
 @export var part_of_speech_list: TextEdit
 @export var grammar_tables: GridContainer
 
-const DEFAULT_PARTS_OF_SPEECH = "noun
-adjective
-adverb
-verb
-adposition
-interjection
-conjunction
-pronoun
-phrase"
 const CONFIG_FILENAME = "config/options.cfg"
 
 var save_location = "unsaved.json"
@@ -79,7 +70,7 @@ func _new_project():
 	$TabManager.current_tab = 1
 
 func _reload_parts_of_speech():
-	part_of_speech_list.text = DEFAULT_PARTS_OF_SPEECH
+	part_of_speech_list.text = TranslationServer.translate(&"DEFAULT_POS_LIST") as String
 
 func _reload_sound_changes():
 	$TabManager/SOUND_CHANGE_TOOL/Categories.text = ""

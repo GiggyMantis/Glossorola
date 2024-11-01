@@ -1,9 +1,27 @@
 [gd_scene load_steps=2 format=3 uid="uid://bojatcy60ut07"]
 
-[ext_resource type="Script" path="res://scripts/PartOfSpeechManagement.gd" id="1_k016h"]
+[sub_resource type="GDScript" id="GDScript_jow5d"]
+script/source = "extends HBoxContainer
+
+@export var pos_selector: OptionButton
+
+func _ready():
+	pos_selector.pressed.connect(self._reload)
+	
+func _reload():
+	var old_selected = pos_selector.get_item_text(pos_selector.selected)
+	var to_select = -1
+	pos_selector.clear()
+	var poses = get_node(\"../../../../..\").get_parts_of_speech()
+	for i in len(poses):
+		if poses[i] == old_selected:
+			to_select = i
+		pos_selector.add_item(poses[i],i)
+	pos_selector.select(to_select)
+"
 
 [node name="Word" type="HBoxContainer" node_paths=PackedStringArray("pos_selector")]
-script = ExtResource("1_k016h")
+script = SubResource("GDScript_jow5d")
 pos_selector = NodePath("PartOfSpeech")
 
 [node name="WordEdit" type="LineEdit" parent="."]
@@ -23,3 +41,7 @@ layout_mode = 2
 layout_mode = 2
 placeholder_text = "GLOSS"
 expand_to_text_length = true
+
+[node name="RemoveEntry" type="Button" parent="."]
+layout_mode = 2
+text = "x"
