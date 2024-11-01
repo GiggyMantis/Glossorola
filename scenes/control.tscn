@@ -28,7 +28,7 @@ open_file_button = NodePath("TabManager/HOME_MENU/OPEN_FILE")
 save_file_button = NodePath("TabManager/HOME_MENU/SAVE_FILE")
 new_project_button = NodePath("TabManager/HOME_MENU/NEW_PROJECT")
 translation_settings = NodePath("TabManager/HOME_MENU/TranslationSettings")
-part_of_speech_list = NodePath("TabManager/GRAMMAR_MODULE/PartOfSpeechList")
+part_of_speech_list = NodePath("TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl/PartOfSpeechList")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -41,7 +41,7 @@ color = Color(0.121569, 0.121569, 0.121569, 1)
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 40.0
-current_tab = 4
+current_tab = 3
 
 [node name="HOME_MENU" type="Control" parent="TabManager"]
 visible = false
@@ -221,16 +221,36 @@ add_button = NodePath("../../DictionaryAdd")
 delete_button = NodePath("../../DictionaryRemove")
 
 [node name="GRAMMAR_MODULE" type="Control" parent="TabManager"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
-[node name="PartOfSpeechList" type="TextEdit" parent="TabManager/GRAMMAR_MODULE"]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 48.0
-offset_right = 368.0
-offset_bottom = 538.0
+[node name="ScrollContainer" type="ScrollContainer" parent="TabManager/GRAMMAR_MODULE"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = -4.054
+anchor_right = 0.01
+anchor_bottom = -4.054
+offset_left = -11.52
+offset_top = 61.486
+offset_right = 1140.48
+offset_bottom = 651.486
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="ScrollControl" type="Control" parent="TabManager/GRAMMAR_MODULE/ScrollContainer"]
+custom_minimum_size = Vector2(0, 2000)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PartOfSpeechList" type="TextEdit" parent="TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl"]
+layout_mode = 2
+offset_left = 80.0
+offset_right = 430.0
+offset_bottom = 500.0
 tooltip_text = "ADD_WORD_CLASS"
 text = "noun
 adjective
@@ -243,16 +263,16 @@ pronoun
 phrase"
 placeholder_text = "ADD_WORD_CLASS"
 
-[node name="BriefGrammarOverview" type="TextEdit" parent="TabManager/GRAMMAR_MODULE"]
-layout_mode = 0
-offset_left = 426.0
-offset_top = 48.0
-offset_right = 1126.0
-offset_bottom = 538.0
+[node name="BriefGrammarOverview" type="TextEdit" parent="TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl"]
+layout_mode = 2
+offset_left = 500.0
+offset_right = 1100.0
+offset_bottom = 500.0
 tooltip_text = "BRIEF_GRAMMAR_OVERVIEW_TOOLTIP"
 placeholder_text = "BRIEF_GRAMMAR_OVERVIEW_TOOLTIP"
 
 [node name="PHONOLOGY_MODULE" type="Control" parent="TabManager"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 

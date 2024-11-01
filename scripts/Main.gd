@@ -36,6 +36,7 @@ func get_parts_of_speech():
 	return part_of_speech_list.text.split("\n")
 	
 func _translate(language_index: int):
+	save_config_file(translation_settings.selected)
 	match language_index:
 		0:
 			TranslationServer.set_locale("en")
@@ -63,7 +64,7 @@ func _new_project():
 	$TabManager/PROJECT_MENU/NameOfLanguage.text = ""
 	$TabManager/PROJECT_MENU/Autonym.text = ""
 	$TabManager/PROJECT_MENU/Langtype.selected = 0
-	$TabManager/GRAMMAR_MODULE/BriefGrammarOverview.text = ""
+	$TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl/BriefGrammarOverview.text = ""
 	$TabManager/PHONOLOGY_MODULE/Vowels.reload()
 	$TabManager/PHONOLOGY_MODULE/Consonants.reload()
 	
@@ -109,8 +110,8 @@ func _save_file_dialog():
 		
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		save_lang(save_location, collate_data())
 		save_config_file(translation_settings.selected)
+		save_lang(save_location, collate_data())
 		get_tree().quit() # default behavior
 
 func save_config_file(language: int):
@@ -130,7 +131,6 @@ func load_config_file():
 	
 	translation_settings.select(config.get_value("Glossorola", "language"))
 	
-
 func collate_data() -> Dictionary:
 	var info: Dictionary
 	info["Version"] = ProjectSettings.get_setting("application/config/version")
@@ -158,8 +158,8 @@ func load_data(info: Dictionary):
 				$TabManager/PROJECT_MENU/Autonym.text = info["Project/Autonym"]
 				$TabManager/PROJECT_MENU/Langtype.selected = info["Project/LanguageType"]
 				%DictionaryContainer.reload(info["Project/Dictionary"])
-				$TabManager/GRAMMAR_MODULE/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
-				$TabManager/GRAMMAR_MODULE/BriefGrammarOverview.text = info["Grammar/BriefGrammarbook"]
+				$TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
+				$TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl/BriefGrammarOverview.text = info["Grammar/BriefGrammarbook"]
 				$TabManager/SOUND_CHANGE_TOOL/Categories.text = info["SCA/Categories"]
 				$TabManager/SOUND_CHANGE_TOOL/RewriteRules.text = info["SCA/Rewrite"]
 				$TabManager/SOUND_CHANGE_TOOL/SoundChanges.text = info["SCA/Rules"]
@@ -172,8 +172,8 @@ func load_data(info: Dictionary):
 				$TabManager/PROJECT_MENU/Autonym.text = info["Project/Autonym"]
 				$TabManager/PROJECT_MENU/Langtype.selected = info["Project/LanguageType"]
 				%DictionaryContainer.reload(info["Project/Dictionary"])
-				$TabManager/GRAMMAR_MODULE/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
-				$TabManager/GRAMMAR_MODULE/BriefGrammarOverview.text = info["Grammar/BriefGrammarbook"]
+				$TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl/PartOfSpeechList.text = "\n".join(info["Grammar/PartsOfSpeech"])
+				$TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl/BriefGrammarOverview.text = info["Grammar/BriefGrammarbook"]
 				$TabManager/SOUND_CHANGE_TOOL/Categories.text = info["SCA/Categories"]
 				$TabManager/SOUND_CHANGE_TOOL/RewriteRules.text = info["SCA/Rewrite"]
 				$TabManager/SOUND_CHANGE_TOOL/SoundChanges.text = info["SCA/Rules"]
@@ -183,8 +183,8 @@ func load_data(info: Dictionary):
 				$TabManager/PROJECT_MENU/Autonym.text = info["Autonym"]
 				$TabManager/PROJECT_MENU/Langtype.selected = info["LanguageType"]
 				%DictionaryContainer.reload(info["Dictionary"])
-				$TabManager/GRAMMAR_MODULE/PartOfSpeechList.text = "\n".join(info["PartsOfSpeech"])
-				$TabManager/GRAMMAR_MODULE/BriefGrammarOverview.text = ""
+				$TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl/PartOfSpeechList.text = "\n".join(info["PartsOfSpeech"])
+				$TabManager/GRAMMAR_MODULE/ScrollContainer/ScrollControl/BriefGrammarOverview.text = ""
 	else:
 		match minor_version:
 			_:
