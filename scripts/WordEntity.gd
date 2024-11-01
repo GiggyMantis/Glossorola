@@ -11,7 +11,7 @@ func _reload():
 	var old_selected = pos_selector.get_item_text(pos_selector.selected)
 	var to_select = -1
 	pos_selector.clear()
-	var poses = get_node("../../../../..").get_parts_of_speech()
+	var poses = Main.get_parts_of_speech()
 	for i in len(poses):
 		if poses[i] == old_selected:
 			to_select = i

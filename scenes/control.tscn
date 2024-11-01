@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://scripts/SoundChangeTool.gd" id="8_3i30n"]
 [ext_resource type="Script" path="res://scripts/IPAKeyboardTool.gd" id="9_f2pyp"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("open_file_button", "save_file_button", "new_project_button", "translation_settings", "part_of_speech_list", "grammar_tables")]
+[node name="Control" type="Control" node_paths=PackedStringArray("open_file_button", "save_file_button", "new_project_button", "translation_settings", "grammar_tables")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,7 +24,6 @@ open_file_button = NodePath("TabManager/HOME_MENU/OPEN_FILE")
 save_file_button = NodePath("TabManager/HOME_MENU/SAVE_FILE")
 new_project_button = NodePath("TabManager/HOME_MENU/NEW_PROJECT")
 translation_settings = NodePath("TabManager/HOME_MENU/TranslationSettings")
-part_of_speech_list = NodePath("TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION/PartOfSpeechList")
 grammar_tables = NodePath("TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_TABLES/ScrollContainer/GrammarContainer")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -242,6 +241,7 @@ tooltip_text = "BRIEF_GRAMMAR_OVERVIEW_TOOLTIP"
 placeholder_text = "BRIEF_GRAMMAR_OVERVIEW_TOOLTIP"
 
 [node name="PartOfSpeechList" type="TextEdit" parent="TabManager/GRAMMAR_MODULE/TabContainer/GRAMMAR_INFORMATION"]
+unique_name_in_owner = true
 layout_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0

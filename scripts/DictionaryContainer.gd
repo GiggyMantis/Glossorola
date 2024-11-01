@@ -17,6 +17,13 @@ func insert_new_word(i: int):
 	Word.uuids.append(u)
 	get_child(i).get_child(4).value = get_child(i).uuid
 	get_child(i).get_child(4)._pressed_get_value.connect(self.remove_word_at_uuid)
+	get_child(i)._reload()
+
+func get_word_from_uuid(uuid: int) -> Word:
+	for child in get_children():
+		if child.uuid == uuid:
+			return Word.New(child.get_child(0).text, child.get_child(1).text, child.get_child(2).selected, child.get_child(3).gloss, child.uuid)
+	return null
 
 func remove_word_at_uuid(uuid: int):
 	for child in get_children():
@@ -45,9 +52,10 @@ func implement_word(item: Word):
 	var item_node = word.instantiate()
 	item_node.get_child(0).text = item.lemma
 	item_node.get_child(1).text = item.pronunciation
-	item_node.get_child(2).selected = item.part_of_speech
 	item_node.get_child(3).text = item.gloss
 	item_node.uuid = item.uuid
+	item_node._reload()
+	item_node.get_child(2).selected = item.part_of_speech
 	add_child(item_node)
 
 func load_data(a: Array[Dictionary]):

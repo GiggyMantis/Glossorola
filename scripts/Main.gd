@@ -1,17 +1,26 @@
 extends Control
+class_name Main
 
 @export var open_file_button: Button
 @export var save_file_button: Button
 @export var new_project_button: Button
 @export var translation_settings: OptionButton
-@export var part_of_speech_list: TextEdit
 @export var grammar_tables: GridContainer
+
+static var part_of_speech_list: TextEdit
+static var dictionary_container: DictionaryContainer
 
 const CONFIG_FILENAME = "config/options.cfg"
 
 var save_location = "unsaved.json"
 
 func _ready():
+	if not dictionary_container:
+		dictionary_container = %DictionaryContainer
+	if not part_of_speech_list:
+		part_of_speech_list = %PartOfSpeechList
+		
+		
 	open_file_button.pressed.connect(self._open_file_dialog)
 	save_file_button.pressed.connect(self._save_file_dialog)
 	new_project_button.pressed.connect(self._new_project)
@@ -25,15 +34,15 @@ func _ready():
 	
 	# Testing
 	#var c := Chronology.new()
-	#c.list.append(Mutation.WordCreationMutation._new(1, DictionaryContainer.Word.New("lemma", "pron", -1, "gloss")))
-	#c.list.append(Mutation.WordCreationMutation._new(0, DictionaryContainer.Word.New("lemma", "pron", -1, "gloss")))
-	#print(c)
+	#c.list.append(Mutation.WordDeletionMutation.new_from_uuid(1, 13))
+	#c.list.append(Mutation.WordCreationMutation._new(0, DictionaryContainer.Word.New("lemma", "pron", 4, "gloss", 13)))
+	#c.evolve()
 	
-	
+
 func get_grammar_tables():
 	return grammar_tables.get_data()	
 
-func get_parts_of_speech():
+static func get_parts_of_speech():
 	return part_of_speech_list.text.split("\n")
 	
 func _translate(language_index: int):

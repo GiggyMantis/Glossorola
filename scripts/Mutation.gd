@@ -57,7 +57,7 @@ class WordCreationMutation extends Mutation:
 		return ret
 	
 	func _mutate():
-		get_local_scene().get_node("%DictionaryContainer").implement_word(value)
+		Main.dictionary_container.implement_word(value)
 	
 	func _mutation_type() -> MutationType:
 		return MutationType.WORD_CREATION
@@ -65,4 +65,25 @@ class WordCreationMutation extends Mutation:
 	func _to_string() -> String:
 		var year_abbrv = TranslationServer.translate(&"YEAR_ABBREVIATION") as String
 		var new_word = TranslationServer.translate(&"NEW_WORD_MUTATION") as String
-		return year_abbrv + " " + str(year) + ": " + new_word + " " + str(value)
+		return year_abbrv + " " + str(year) + ": " + new_word + " " + str(Main.dictionary_container.get_word_from_uuid(value))
+
+class WordDeletionMutation extends Mutation:
+	static func _new(year: int, value: DictionaryContainer.Word):
+		return new_from_uuid(year, value.uuid)
+	
+	static func new_from_uuid(year: int, uuid: int):
+		var ret = WordDeletionMutation.new()
+		ret.year = clamp(year, 0, Chronology.MAX_YEAR)
+		ret.value = uuid
+		return ret
+	
+	func _mutate():
+		Main.dictionary_container.remove_word_at_uuid(value)
+	
+	func _mutation_type() -> MutationType:
+		return MutationType.WORD_DELETION
+	
+	func _to_string() -> String:
+		var year_abbrv = TranslationServer.translate(&"YEAR_ABBREVIATION") as String
+		var new_word = TranslationServer.translate(&"DELETE_WORD_MUTATION") as String
+		return year_abbrv + " " + str(year) + ": " + new_word + " " + str(Main.dictionary_container.get_word_from_uuid(value))

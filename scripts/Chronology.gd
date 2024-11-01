@@ -26,7 +26,7 @@ func evolve(year: int = -1):
 	assert(year <= MAX_YEAR)
 	sort()
 	for mutation in list:
-		if mutation.year > year or year == -1:
+		if mutation.year > year and year != -1:
 			break
 		mutation._mutate()
 
